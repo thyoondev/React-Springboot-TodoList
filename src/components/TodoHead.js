@@ -28,10 +28,31 @@ const TodoHeadBlock = styled.div`
     font-weight: bold;
   }
   .weather {
+    float: right;
+    margin: 0;
+    font-size: 24px;
+    display: inline-block;
+  }
+  .weatherTemp {
+    margin: 0;
+    font-size: 24px;
+    color: #868e96;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .weatherTempInner {
+    margin: 0;
+    font-size: 80px;
+    color: #868e96;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .weatherDescription {
     margin: 0;
     font-size: 24px;
     color: skyblue;
     display: inline-block;
+    margin-right: 10px;
   }
 `;
 
@@ -40,7 +61,10 @@ class TodoHead extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      weather: { main: { temp: 0 } },
+      weather: {
+        main: { temp: 0 },
+        weather: [{ description: "a", icon: "0" }],
+      },
       url:
         "http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=9baac3369dd75739c16d992d23f0b417&lang=kr&units=metric",
     };
@@ -95,8 +119,19 @@ class TodoHead extends Component {
     return (
       <TodoHeadBlock>
         <h1>{dateString}</h1>
-        <h3 className="weather">{this.state.weather.main.temp}도</h3>
-        <div className="day">{dayName}</div>
+        <div className="day">
+          {dayName}
+          <div className="weather">
+            <div className="weatherTemp">
+              <p className="weatherTempInner">{this.state.weather.main.temp}</p>
+              °C
+            </div>
+            <div className="weatherDescription">
+              {this.state.weather.weather[0].description}
+            </div>
+          </div>
+        </div>
+
         <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
       </TodoHeadBlock>
     );

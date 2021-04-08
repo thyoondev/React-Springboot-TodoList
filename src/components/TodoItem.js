@@ -101,6 +101,7 @@ class TodoItem extends Component {
   render() {
     const { todo, removeItem, toggleItem, pinItem } = this.props;
 
+    //배열 오브젝트의 createdDate와 현재 날짜를 비교해 반환해줌
     let addDate = moment(todo.createdDate, "YYYYMMDDHHmmss").fromNow();
     return (
       <TodoItemBlock>

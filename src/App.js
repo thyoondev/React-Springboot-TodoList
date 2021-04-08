@@ -41,7 +41,7 @@ class App extends Component {
           id: 4,
           text: "게시글 고정 기능 추가",
           done: true,
-          priority: 0,
+          priority: 1,
           createdDate: 20210408140115,
         },
         {
