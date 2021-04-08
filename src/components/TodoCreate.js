@@ -99,7 +99,7 @@ class TodoCreate extends Component {
 
   /**
    * 입력할 text의 value를 담는 state
-   * @param {}} value
+   * @param {} value
    */
   onValue = (value) => {
     this.setState({
@@ -137,7 +137,10 @@ class TodoCreate extends Component {
             </InsertForm>
           </InsertFormPositioner>
         )}
-        <CircleButton onClick={() => this.onToggle(this.state.open)}>
+        <CircleButton
+          onClick={() => this.onToggle(this.state.open)}
+          open={this.state.open}
+        >
           <MdAdd />
         </CircleButton>
       </>

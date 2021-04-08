@@ -28,8 +28,8 @@ const AddPin = styled.div`
     color: #edd27e;
   }
 
-  ${(priority) =>
-    priority.priority === 1
+  ${(state) =>
+    state.priority === 1
       ? css`
           color: #edd27e;
           display: block;

@@ -25,9 +25,44 @@ const TodoHeadBlock = styled.div`
     margin-top: 40px;
     font-weight: bold;
   }
+  .weather {
+    margin: 0;
+    font-size: 24px;
+    color: #868e96;
+    display: inline-block;
+  }
 `;
 
+//날씨
 class TodoHead extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      weather: { main: { temp: 0 } },
+      url:
+        "http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=9baac3369dd75739c16d992d23f0b417&lang=kr&units=metric",
+    };
+  }
+
+  setWeather = (result) => {
+    this.setState({
+      weather: result,
+    });
+  };
+
+  getWeather = () => {
+    fetch(this.state.url)
+      .then((res) => res.json())
+      .then((result) => {
+        this.setWeather(result);
+      });
+  };
+
+  //Dom 그리고나서 한 번만 실행
+  componentDidMount() {
+    this.getWeather();
+  }
+
   render() {
     const { todos } = this.props;
     //done:false의 객체만 undoneTasks에 담아줌
@@ -53,6 +88,7 @@ class TodoHead extends Component {
     return (
       <TodoHeadBlock>
         <h1>{dateString}</h1>
+        <h3 className="weather">{this.state.weather.main.temp}도</h3>
         <div className="day">{dayName}</div>
         <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
       </TodoHeadBlock>
