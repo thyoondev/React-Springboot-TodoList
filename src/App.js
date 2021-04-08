@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import TodoTemplate from "./components/TodoTemplate";
 import TodoHead from "./components/TodoHead";
@@ -11,56 +11,51 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      todolist: [
-        {
-          id: 1,
-          text: "react 익히기",
-          done: true,
-          priority: 0,
-          createdDate: 20210404172315,
-        },
-        {
-          id: 2,
-          text: "TodoList 만들기",
-          done: true,
-          priority: 0,
-          createdDate: 20210407122315,
-        },
-        {
-          id: 3,
-          text: "class components로 변경하기",
-          done: true,
-          priority: 0,
-          createdDate: 20210408122315,
-        },
-        {
-          id: 4,
-          text: "게시글 고정 기능 추가",
-          done: true,
-          priority: 1,
-          createdDate: 20210408140115,
-        },
-        {
-          id: 5,
-          text: "날씨 정보 추가",
-          done: false,
-          priority: 0,
-          createdDate: 20210408141215,
-        },
-        {
-          id: 6,
-          text: "something new..",
-          done: false,
-          priority: 0,
-          createdDate: 20210408142515,
-        },
-      ],
-    };
-  }
+function App() {
+  const [todoList, setTodoList] = useState([
+    {
+      id: 1,
+      text: "react 익히기",
+      done: true,
+      priority: 0,
+      createdDate: 20210404172315,
+    },
+    {
+      id: 2,
+      text: "TodoList 만들기",
+      done: true,
+      priority: 0,
+      createdDate: 20210407122315,
+    },
+    {
+      id: 3,
+      text: "class components로 변경하기",
+      done: true,
+      priority: 0,
+      createdDate: 20210408122315,
+    },
+    {
+      id: 4,
+      text: "게시글 고정 기능 추가",
+      done: true,
+      priority: 1,
+      createdDate: 20210408140115,
+    },
+    {
+      id: 5,
+      text: "날씨 정보 추가",
+      done: false,
+      priority: 0,
+      createdDate: 20210408141215,
+    },
+    {
+      id: 6,
+      text: "something new..",
+      done: false,
+      priority: 0,
+      createdDate: 20210408142515,
+    },
+  ]);
 
   /**
    * 리스트 글 삭제
@@ -68,10 +63,8 @@ class App extends Component {
    * //bool을 return 받는다. -> true만 걸러낸다.
    * @param {*} id
    */
-  removeItem = (id) => {
-    this.setState({
-      todolist: this.state.todolist.filter((todo) => todo.id !== id),
-    });
+  const removeItem = (id) => {
+    setTodoList(todoList.filter((todo) => todo.id !== id));
   };
 
   /**
@@ -80,22 +73,20 @@ class App extends Component {
    *
    * @param {*} id 게시글 id번호
    */
-  toggleItem = (id) => {
-    this.setState({
-      todolist: this.state.todolist.map((todo) =>
+  const toggleItem = (id) => {
+    setTodoList(
+      todoList.map((todo) =>
         todo.id === id ? { ...todo, done: !todo.done } : todo
-      ),
-    });
+      )
+    );
   };
 
   /**
    * 리스트 글 작성
    * concat함수를 이용해 배열 오브젝트의 마지막에 파라미터로 받은 객체를 추가해준다.
    */
-  createItem = (data) => {
-    this.setState({
-      todolist: this.state.todolist.concat(data.todo),
-    });
+  const createItem = (data) => {
+    setTodoList(todoList.concat(data.todo));
   };
 
   /**
@@ -106,37 +97,32 @@ class App extends Component {
    *
    * @param {*} id 게시글 id 번호
    */
-  pinItem = (id) => {
-    this.setState({
-      todolist: this.state.todolist.map((todo) =>
+  const pinItem = (id) => {
+    setTodoList(
+      todoList.map((todo) =>
         todo.id === id
           ? todo.priority === 1
             ? { ...todo, priority: 0 }
             : { ...todo, priority: 1 }
           : todo
-      ),
-    });
+      )
+    );
   };
 
-  render() {
-    return (
-      <>
-        <GlobalStyle />
-        <TodoTemplate>
-          <TodoHead todos={this.state.todolist} />
-          <TodoList
-            todos={this.state.todolist}
-            removeItem={this.removeItem}
-            toggleItem={this.toggleItem}
-            pinItem={this.pinItem}
-          />
-          <TodoCreate
-            createItem={this.createItem}
-            todos={this.state.todolist}
-          />
-        </TodoTemplate>
-      </>
-    );
-  }
+  return (
+    <>
+      <GlobalStyle />
+      <TodoTemplate>
+        <TodoHead todos={todoList} />
+        <TodoList
+          todos={todoList}
+          removeItem={removeItem}
+          toggleItem={toggleItem}
+          pinItem={pinItem}
+        />
+        <TodoCreate createItem={createItem} todos={todoList} />
+      </TodoTemplate>
+    </>
+  );
 }
 export default App;

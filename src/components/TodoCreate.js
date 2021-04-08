@@ -1,6 +1,6 @@
 //하단영역 입력창 제어와 글 입력을 하는 컴포넌트
 
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
 import moment from "moment";
@@ -79,77 +79,62 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-class TodoCreate extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      value: "",
-    };
-  }
+function TodoCreate(props) {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
 
   /**
    * styled-components 제어 토글 스위치
    *
    * @param {*} open true일 경우 하단 +버튼 활성화 <-> false경우 비활성화
    */
-  onToggle = (open) => {
-    this.setState({
-      open: !open,
-    });
+  const onToggle = (open) => {
+    setOpen(!open);
   };
 
   /**
    * 입력할 text의 value를 담는 state
    * @param {} value
    */
-  onValue = (value) => {
-    this.setState({
-      value: value,
-    });
+  const onValue = (value) => {
+    setValue(value);
   };
 
-  onChange = (e) => this.onValue(e.target.value);
-
-  render() {
-    const { createItem, todos } = this.props;
-    return (
-      <>
-        {this.state.open && (
-          <InsertFormPositioner>
-            <InsertForm
-              onSubmit={(e) => {
-                e.preventDefault(); // 새로고침 방지
-                createItem({
-                  todo: {
-                    id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
-                    text: this.state.value,
-                    done: false,
-                    priority: 0,
-                    createdDate: moment().format("YYYYMMDDHHmmss"),
-                  },
-                });
-                this.onValue("");
-              }}
-            >
-              <Input
-                autoFocus
-                placeholder="할 일을 입력 후, Enter 를 누르세요"
-                onChange={this.onChange}
-                value={this.state.value}
-              />
-            </InsertForm>
-          </InsertFormPositioner>
-        )}
-        <CircleButton
-          onClick={() => this.onToggle(this.state.open)}
-          open={this.state.open}
-        >
-          <MdAdd />
-        </CircleButton>
-      </>
-    );
-  }
+  const onChange = (e) => onValue(e.target.value);
+  const { createItem, todos } = props;
+  return (
+    <>
+      {open && (
+        <InsertFormPositioner>
+          <InsertForm
+            onSubmit={(e) => {
+              e.preventDefault(); // 새로고침 방지
+              createItem({
+                todo: {
+                  id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
+                  text: value,
+                  done: false,
+                  priority: 0,
+                  createdDate: moment().format("YYYYMMDDHHmmss"),
+                },
+              });
+              onValue("");
+            }}
+          >
+            <Input
+              autoFocus
+              placeholder="할 일을 입력 후, Enter 를 누르세요"
+              onChange={onChange}
+              value={value}
+            />
+          </InsertForm>
+        </InsertFormPositioner>
+      )}
+      <CircleButton onClick={() => onToggle(open)} open={open}>
+        <MdAdd />
+      </CircleButton>
+    </>
+  );
 }
 
 export default React.memo(TodoCreate);

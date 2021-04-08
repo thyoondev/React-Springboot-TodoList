@@ -1,6 +1,6 @@
 //템플릿 컴포넌트
 
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const TodoTemplateBlock = styled.div`
@@ -20,11 +20,9 @@ const TodoTemplateBlock = styled.div`
   flex-direction: column;
 `;
 
-class TodoTemplate extends Component {
-  render() {
-    const { children } = this.props;
-    return <TodoTemplateBlock>{children}</TodoTemplateBlock>;
-  }
+function TodoTemplate(props) {
+  const { children } = props;
+  return <TodoTemplateBlock>{children}</TodoTemplateBlock>;
 }
 
 export default TodoTemplate;
