@@ -13,7 +13,7 @@ const TodoListBlock = styled.div`
 
 class TodoList extends Component {
   render() {
-    const { todos, listRemove, listToggle, listPin } = this.props;
+    const { todos, removeItem, toggleItem, pinItem } = this.props;
     //ADD pin function and array sort
     todos.sort((a, b) => a.id - b.id);
     todos.sort((a, b) => b.priority - a.priority);
@@ -22,13 +22,10 @@ class TodoList extends Component {
         {todos.map((todo) => (
           <TodoItem
             key={todo.id}
-            id={todo.id}
-            text={todo.text}
-            done={todo.done}
-            priority={todo.priority}
-            listRemove={listRemove}
-            listToggle={listToggle}
-            listPin={listPin}
+            todo={todo}
+            removeItem={removeItem}
+            toggleItem={toggleItem}
+            pinItem={pinItem}
           />
         ))}
       </TodoListBlock>

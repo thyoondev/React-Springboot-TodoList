@@ -3,6 +3,8 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
+import moment from "moment";
+import "moment/locale/ko"; // 이줄 추가
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -110,7 +112,7 @@ class TodoCreate extends Component {
   onChange = (e) => this.onValue(e.target.value);
 
   render() {
-    const { listCreate, todos } = this.props;
+    const { createItem, todos } = this.props;
     return (
       <>
         {this.state.open && (
@@ -118,21 +120,23 @@ class TodoCreate extends Component {
             <InsertForm
               onSubmit={(e) => {
                 e.preventDefault(); // 새로고침 방지
-                listCreate({
+                createItem({
                   todo: {
                     id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
                     text: this.state.value,
                     done: false,
                     priority: 0,
+                    createdDate: moment().format("YYYYMMDDHHmmss"),
                   },
                 });
+                this.onValue("");
               }}
             >
               <Input
                 autoFocus
                 placeholder="할 일을 입력 후, Enter 를 누르세요"
                 onChange={this.onChange}
-                value={this.value}
+                value={this.state.value}
               />
             </InsertForm>
           </InsertFormPositioner>

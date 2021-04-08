@@ -18,24 +18,46 @@ class App extends Component {
       todolist: [
         {
           id: 1,
-          text: "javascript 익히기",
-          done: true,
-          priority: 0,
-        },
-        {
-          id: 2,
           text: "react 익히기",
           done: true,
           priority: 0,
+          createdDate: 20210404172315,
         },
-        { id: 3, text: "TodoList 만들기", done: false, priority: 0 },
+        {
+          id: 2,
+          text: "TodoList 만들기",
+          done: true,
+          priority: 0,
+          createdDate: 20210407122315,
+        },
+        {
+          id: 3,
+          text: "class components로 변경하기",
+          done: true,
+          priority: 0,
+          createdDate: 20210408122315,
+        },
         {
           id: 4,
-          text: "class components로 변경하기",
+          text: "게시글 고정 기능 추가",
+          done: true,
+          priority: 0,
+          createdDate: 20210408140115,
+        },
+        {
+          id: 5,
+          text: "날씨 정보 추가",
           done: false,
           priority: 0,
+          createdDate: 20210408141215,
         },
-        { id: 5, text: "function 추가하기", done: false, priority: 0 },
+        {
+          id: 6,
+          text: "something new..",
+          done: false,
+          priority: 0,
+          createdDate: 20210408142515,
+        },
       ],
     };
   }
@@ -46,7 +68,7 @@ class App extends Component {
    * //bool을 return 받는다. -> true만 걸러낸다.
    * @param {*} id
    */
-  listRemove = (id) => {
+  removeItem = (id) => {
     this.setState({
       todolist: this.state.todolist.filter((todo) => todo.id !== id),
     });
@@ -58,7 +80,7 @@ class App extends Component {
    *
    * @param {*} id 게시글 id번호
    */
-  listToggle = (id) => {
+  toggleItem = (id) => {
     this.setState({
       todolist: this.state.todolist.map((todo) =>
         todo.id === id ? { ...todo, done: !todo.done } : todo
@@ -70,7 +92,7 @@ class App extends Component {
    * 리스트 글 작성
    * concat함수를 이용해 배열 오브젝트의 마지막에 파라미터로 받은 객체를 추가해준다.
    */
-  listCreate = (data) => {
+  createItem = (data) => {
     this.setState({
       todolist: this.state.todolist.concat(data.todo),
     });
@@ -84,7 +106,7 @@ class App extends Component {
    *
    * @param {*} id 게시글 id 번호
    */
-  listPin = (id) => {
+  pinItem = (id) => {
     this.setState({
       todolist: this.state.todolist.map((todo) =>
         todo.id === id
@@ -104,12 +126,12 @@ class App extends Component {
           <TodoHead todos={this.state.todolist} />
           <TodoList
             todos={this.state.todolist}
-            listRemove={this.listRemove}
-            listToggle={this.listToggle}
-            listPin={this.listPin}
+            removeItem={this.removeItem}
+            toggleItem={this.toggleItem}
+            pinItem={this.pinItem}
           />
           <TodoCreate
-            listCreate={this.listCreate}
+            createItem={this.createItem}
             todos={this.state.todolist}
           />
         </TodoTemplate>

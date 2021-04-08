@@ -2,6 +2,8 @@
 
 import React, { Component } from "react";
 import styled from "styled-components";
+import moment from "moment";
+import "moment/locale/ko"; // 이줄 추가
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
@@ -28,13 +30,13 @@ const TodoHeadBlock = styled.div`
   .weather {
     margin: 0;
     font-size: 24px;
-    color: #868e96;
+    color: skyblue;
     display: inline-block;
   }
 `;
 
-//날씨
 class TodoHead extends Component {
+  //날씨
   constructor(props) {
     super(props);
     this.state = {
@@ -65,11 +67,12 @@ class TodoHead extends Component {
 
   render() {
     const { todos } = this.props;
+
     //done:false의 객체만 undoneTasks에 담아줌
     const undoneTasks = todos.filter((todo) => !todo.done);
 
     // 날짜 표시를 위한 작업
-    const today = new Date(); // 오늘 날짜와 시간정보(now)
+    // const today = new Date(); // 오늘 날짜와 시간정보(now)
 
     // console.log(today); // EX) Sun Oct 04 2020 11:56:00 GMT+0900 (대한민국 표준시)
     // console.log(today.toLocaleString()); // EX) 2020. 10. 4. 오전 11:56:00
@@ -78,12 +81,16 @@ class TodoHead extends Component {
     // console.log(today.toLocaleDateString('ko-KR', { weekday: 'long' })); // 요일
     // console.log(today.toLocaleTimeString()); // 시간 string EX) 오후 12:15:28
 
-    const dateString = today.toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    const dayName = today.toLocaleDateString("ko-KR", { weekday: "long" });
+    // const dateString = today.toLocaleDateString("ko-KR", {
+    //   year: "numeric",
+    //   month: "long",
+    //   day: "numeric",
+    // });
+    // const dayName = today.toLocaleDateString("ko-KR", { weekday: "long" });
+
+    //moment.js 사용
+    const dateString = moment().format("YYYY년 MM월 DD일");
+    const dayName = moment().format("dd요일");
 
     return (
       <TodoHeadBlock>

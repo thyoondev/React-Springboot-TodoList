@@ -3,6 +3,8 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete, MdFlag } from "react-icons/md";
+import moment from "moment";
+import "moment/locale/ko"; // 이줄 추가
 
 const Remove = styled.div`
   display: flex;
@@ -85,31 +87,36 @@ const Text = styled.div`
     `}
 `;
 
+const CreateDate = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dee2e6;
+  font-size: 14px;
+  font-style: italic;
+  margin-right: 10px;
+`;
+
 class TodoItem extends Component {
   render() {
-    const {
-      id,
-      done,
-      text,
-      priority,
-      listRemove,
-      listToggle,
-      listPin,
-    } = this.props;
+    const { todo, removeItem, toggleItem, pinItem } = this.props;
 
+    let addDate = moment(todo.createdDate, "YYYYMMDDHHmmss").fromNow();
     return (
       <TodoItemBlock>
         {/* task toggle button*/}
-        <CheckCircle done={done} onClick={() => listToggle(id)}>
-          {done && <MdDone />}
+        <CheckCircle done={todo.done} onClick={() => toggleItem(todo.id)}>
+          {todo.done && <MdDone />}
         </CheckCircle>
-        <Text done={done}>{text}</Text>
+        <Text done={todo.done}>{todo.text}</Text>
+        {/* createdDate text */}
+        <CreateDate>{addDate}</CreateDate>
         {/* task pin button */}
-        <AddPin onClick={() => listPin(id)} priority={priority}>
+        <AddPin onClick={() => pinItem(todo.id)} priority={todo.priority}>
           <MdFlag />
         </AddPin>
         {/* task remove button */}
-        <Remove onClick={() => listRemove(id)}>
+        <Remove onClick={() => removeItem(todo.id)}>
           <MdDelete />
         </Remove>
       </TodoItemBlock>
