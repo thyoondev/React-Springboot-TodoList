@@ -1,3 +1,5 @@
+//게시글에 해당하는 배열 오브젝트를 하나하나 따로 받아 화면에 렌더링해주는 컴포넌트
+
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete, MdFlag } from "react-icons/md";
@@ -97,13 +99,16 @@ class TodoItem extends Component {
 
     return (
       <TodoItemBlock>
+        {/* task toggle button*/}
         <CheckCircle done={done} onClick={() => listToggle(id)}>
           {done && <MdDone />}
         </CheckCircle>
         <Text done={done}>{text}</Text>
+        {/* task pin button */}
         <AddPin onClick={() => listPin(id)} priority={priority}>
           <MdFlag />
         </AddPin>
+        {/* task remove button */}
         <Remove onClick={() => listRemove(id)}>
           <MdDelete />
         </Remove>

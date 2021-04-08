@@ -1,3 +1,5 @@
+//하단영역 입력창 제어와 글 입력을 하는 컴포넌트
+
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
@@ -118,7 +120,7 @@ class TodoCreate extends Component {
                 e.preventDefault(); // 새로고침 방지
                 listCreate({
                   todo: {
-                    id: todos.length + 1, //배열 오브젝트 전체 길이에 1씩 더해 id값 만듬
+                    id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
                     text: this.state.value,
                     done: false,
                     priority: 0,

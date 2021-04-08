@@ -1,3 +1,5 @@
+//게시글 리스트을 개별적으로 뿌려주고 정렬을 하는 컴포넌트
+
 import React, { Component } from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
@@ -12,7 +14,7 @@ const TodoListBlock = styled.div`
 class TodoList extends Component {
   render() {
     const { todos, listRemove, listToggle, listPin } = this.props;
-    //핀기능 추가
+    //ADD pin function and array sort
     todos.sort((a, b) => a.id - b.id);
     todos.sort((a, b) => b.priority - a.priority);
     return (
