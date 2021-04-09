@@ -36,6 +36,7 @@ const CircleButton = styled.button`
   justify-content: center;
 
   transition: 0.125s all ease-in;
+  //값을 넘겨받아 state나 props의 값으로 css을 제어할 수 있음
   ${(state) =>
     state.open &&
     css`
@@ -82,6 +83,7 @@ const Input = styled.input`
 function TodoCreate(props) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const { createItem, todos } = props;
 
   /**
    * styled-components 제어 토글 스위치
@@ -100,27 +102,36 @@ function TodoCreate(props) {
     setValue(value);
   };
 
+  /**
+   * Form의 submit이 발생하면 app.js의 createItem 호출 후 value state 값 초기화
+   * @param {*} e
+   */
+  const handleWrite = (e) => {
+    e.preventDefault(); // 새로고침 방지
+    createItem({
+      todo: {
+        id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
+        text: value,
+        done: false,
+        priority: 0,
+        createdDate: moment().format("YYYYMMDDHHmmss"),
+      },
+    });
+    onValue("");
+  };
+
+  /**
+   * inputBox의 값 감지 -> 해당 값을 value state에 바로 담아줌
+   * @param {*} e
+   * @returns
+   */
   const onChange = (e) => onValue(e.target.value);
-  const { createItem, todos } = props;
+
   return (
     <>
       {open && (
         <InsertFormPositioner>
-          <InsertForm
-            onSubmit={(e) => {
-              e.preventDefault(); // 새로고침 방지
-              createItem({
-                todo: {
-                  id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
-                  text: value,
-                  done: false,
-                  priority: 0,
-                  createdDate: moment().format("YYYYMMDDHHmmss"),
-                },
-              });
-              onValue("");
-            }}
-          >
+          <InsertForm onSubmit={handleWrite}>
             <Input
               autoFocus
               placeholder="할 일을 입력 후, Enter 를 누르세요"
@@ -137,4 +148,4 @@ function TodoCreate(props) {
   );
 }
 
-export default React.memo(TodoCreate);
+export default React.memo(TodoCreate); //다른 항목이 업데이트 될 때, 불필요한 리렌더링을 방지하게 되어 성능을 최적화 할 수 있게 됌
