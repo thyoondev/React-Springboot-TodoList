@@ -70,14 +70,19 @@ const InsertForm = styled.form`
   border-top: 1px solid #e9ecef;
 `;
 
-const Input = styled.input`
+const Input = styled.textarea`
   padding: 12px;
   border-radius: 4px;
   border: 1px solid #dee2e6;
   width: 100%;
+  max-width: 100%;
+  min-width: 100%;
   outline: none;
   font-size: 18px;
   box-sizing: border-box;
+  max-height: 120px;
+  min-height: 120px;
+  height: 120px;
 `;
 
 function TodoCreate(props) {
@@ -106,8 +111,7 @@ function TodoCreate(props) {
    * Form의 submit이 발생하면 app.js의 createItem 호출 후 value state 값 초기화
    * @param {*} e
    */
-  const handleWrite = (e) => {
-    e.preventDefault(); // 새로고침 방지
+  const handleWrite = () => {
     createItem({
       todo: {
         id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
@@ -127,16 +131,24 @@ function TodoCreate(props) {
    */
   const onChange = (e) => onValue(e.target.value);
 
+  const onEnterPress = (e) => {
+    if (e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault(); // 새로고침 방지
+      handleWrite();
+    }
+  };
+
   return (
     <>
       {open && (
         <InsertFormPositioner>
-          <InsertForm onSubmit={handleWrite}>
+          <InsertForm>
             <Input
               autoFocus
               placeholder="할 일을 입력 후, Enter 를 누르세요"
               onChange={onChange}
               value={value}
+              onKeyDown={onEnterPress}
             />
           </InsertForm>
         </InsertFormPositioner>

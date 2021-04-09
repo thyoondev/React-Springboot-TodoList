@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
+const App = () => {
   const [todoList, setTodoList] = useState([
     {
       id: 1,
@@ -29,7 +29,7 @@ function App() {
     },
     {
       id: 3,
-      text: "class components로 변경하기",
+      text: "클래스 컴포넌트로 변경하기",
       done: true,
       priority: 0,
       createdDate: 20210408122315,
@@ -43,14 +43,14 @@ function App() {
     },
     {
       id: 5,
-      text: "날씨 정보 추가",
+      text: "줄 개행 \n테스트~~~~~",
       done: false,
       priority: 0,
       createdDate: 20210408141215,
     },
     {
       id: 6,
-      text: "something new..",
+      text: "url http://www.naver.com 링크테스트",
       done: false,
       priority: 0,
       createdDate: 20210408142515,
@@ -124,5 +124,5 @@ function App() {
       </TodoTemplate>
     </>
   );
-}
+};
 export default App;
