@@ -1,12 +1,23 @@
 //게시글에 해당하는 배열 오브젝트를 하나하나 따로 받아 화면에 렌더링해주는 컴포넌트
 
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { MdDone, MdDelete, MdFlag } from "react-icons/md";
+import { MdMenu, MdClose, MdDone, MdDelete, MdFlag } from "react-icons/md";
 import moment from "moment";
 import "moment/locale/ko"; // 이줄 추가
-import "./testcss.css";
+import "./Item.css";
 
+const Menu = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  margin-right: 5px;
+  font-size: 18px;
+  &:hover {
+    color: #dee2e6;
+  }
+`;
 const Remove = styled.div`
   display: flex;
   align-items: center;
@@ -17,7 +28,6 @@ const Remove = styled.div`
   &:hover {
     color: #ff6b6b;
   }
-  display: none;
 `;
 
 const AddPin = styled.div`
@@ -35,11 +45,9 @@ const AddPin = styled.div`
     state.priority === 1
       ? css`
           color: #edd27e;
-          display: block;
         `
       : css`
           color: #dee2e6;
-          display: none;
         `}
 `;
 
@@ -48,42 +56,25 @@ const TodoItemBlock = styled.div`
   align-items: center;
   padding-top: 12px;
   padding-bottom: 12px;
-  &:hover {
-    ${Remove} {
-      display: block;
-    }
-    ${AddPin} {
-      display: block;
-    }
-  }
-`;
-
-const CheckCircle = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
   border: 1px solid #ced4da;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20px;
-  cursor: pointer;
-  ${(props) =>
-    props.done &&
-    css`
-      border: 1px solid #38d9a9;
-      color: #38d9a9;
-    `}
+  border-radius: 8px;
+  margin-top: 5px;
+  //cursor: pointer;
+  height: 80px;
+  width: 100%;
+  box-shadow: 1px 1px 3px 0px #ced4da;
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 const Text = styled.div`
   flex: 1;
-  font-size: 21px;
+  font-size: 16px;
   color: #495057;
   word-break: keep-all;
   ${(props) =>
-    props.done &&
+    props.process === 2 &&
     css`
       color: #ced4da;
     `}
@@ -93,17 +84,57 @@ const CreateDate = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #dee2e6;
-  font-size: 14px;
+  color: gray;
+  font-size: 6px;
   font-style: italic;
   margin-right: 10px;
 `;
 
+const ChangeProcessState = styled.div`
+  border: 0px;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+`;
+const NowProcessState = styled.div`
+  border: 0px;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+`;
+const ProcessStateCircle = styled.button`
+  min-width: 14px;
+  min-height: 14px;
+  border: 0px;
+  border-radius: 50%;
+  margin: 5px 15px 5px 15px;
+  outline: none;
+  cursor: pointer;
+  ${(props) =>
+    props.process === 0
+      ? css`
+          background-color: #ff7675;
+        `
+      : props.process === 1
+      ? css`
+          background-color: #fdcb6e;
+        `
+      : css`
+          background-color: #38d9a9;
+        `}
+  &:hover {
+    border: 1px solid gray;
+  }
+`;
 const ViewText = styled.div`
   white-space: pre-wrap; //공백을 코드에 있는 그대로 표시함, 코드에 줄바꿈이 없어도 자동 줄바꿈이 됨
 `;
 function TodoItem(props) {
-  const { todo, removeItem, toggleItem, pinItem } = props;
+  const { todo, removeItem, toggleItem, pinItem, toggleProcessState } = props;
+  const [processToggle, setProcessToggle] = useState(false);
+  const [menuToggle, setMenuToggle] = useState(false);
 
   //배열 오브젝트의 createdDate와 현재 날짜를 비교해 반환해줌
   let addDate = moment(todo.createdDate, "YYYYMMDDHHmmss").fromNow();
@@ -128,25 +159,78 @@ function TodoItem(props) {
       return todo.text;
     }
   };
+
   return (
     <TodoItemBlock>
-      {/* task toggle button*/}
-      <CheckCircle done={todo.done} onClick={() => toggleItem(todo.id)}>
-        {todo.done && <MdDone />}
-      </CheckCircle>
-      <Text done={todo.done}>
+      {/* 프로세스 상태 관리 조건부 렌더링 */}
+      <div onClick={() => setProcessToggle(!processToggle)}>
+        {processToggle ? (
+          <ChangeProcessState>
+            <ProcessStateCircle
+              process={0}
+              onClick={() => toggleProcessState(todo.id, 0)}
+              title="진행 전"
+            ></ProcessStateCircle>
+            <ProcessStateCircle
+              process={1}
+              onClick={() => toggleProcessState(todo.id, 1)}
+              title="진행 중"
+            ></ProcessStateCircle>
+            <ProcessStateCircle
+              process={2}
+              onClick={() => toggleProcessState(todo.id, 2)}
+              title="완료"
+            ></ProcessStateCircle>
+          </ChangeProcessState>
+        ) : (
+          <NowProcessState>
+            <ProcessStateCircle
+              process={todo.process}
+              title="진행 상태 변경"
+            ></ProcessStateCircle>
+          </NowProcessState>
+        )}
+      </div>
+      {/*내용 출력 */}
+      <Text process={todo.process}>
         <ViewText dangerouslySetInnerHTML={{ __html: getText() }} />
       </Text>
-      {/* createdDate text */}
-      <CreateDate>{addDate}</CreateDate>
-      {/* task pin button */}
+
+      {/* createdDate text
+      <CreateDate>{addDate}</CreateDate>*/}
+
+      {/* 메뉴 버튼 */}
+      <div onClick={() => setMenuToggle(!menuToggle)}>
+        {menuToggle ? (
+          <div>
+            <Menu>
+              <MdClose />
+            </Menu>
+            <AddPin>
+              <MdFlag
+                onClick={() => pinItem(todo.id)}
+                priority={todo.priority}
+              />
+            </AddPin>
+            <Remove>
+              <MdDelete onClick={() => removeItem(todo.id)} />
+            </Remove>
+          </div>
+        ) : (
+          <Menu>
+            <MdMenu />
+          </Menu>
+        )}
+      </div>
+
+      {/* task pin button }
       <AddPin onClick={() => pinItem(todo.id)} priority={todo.priority}>
         <MdFlag />
       </AddPin>
-      {/* task remove button */}
+      {/* task remove button}
       <Remove onClick={() => removeItem(todo.id)}>
         <MdDelete />
-      </Remove>
+      </Remove>*/}
     </TodoItemBlock>
   );
 }

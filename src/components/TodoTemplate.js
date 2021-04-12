@@ -4,9 +4,8 @@ import React from "react";
 import styled from "styled-components";
 
 const TodoTemplateBlock = styled.div`
-  width: 512px;
+  width: 1024px;
   height: 768px;
-
   position: relative; /* 추후 박스 하단에 추가 버튼을 위치시키기 위한 설정 */
   background: white;
   border-radius: 16px;

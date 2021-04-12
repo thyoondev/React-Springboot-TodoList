@@ -80,8 +80,8 @@ const Input = styled.textarea`
   outline: none;
   font-size: 18px;
   box-sizing: border-box;
-  max-height: 120px;
-  min-height: 120px;
+  max-height: 80px;
+  min-height: 80px;
   height: 120px;
 `;
 
@@ -119,6 +119,7 @@ function TodoCreate(props) {
         done: false,
         priority: 0,
         createdDate: moment().format("YYYYMMDDHHmmss"),
+        process: 0,
       },
     });
     onValue("");
@@ -132,7 +133,7 @@ function TodoCreate(props) {
   const onChange = (e) => onValue(e.target.value);
 
   const onEnterPress = (e) => {
-    if (e.keyCode == 13 && e.shiftKey == false) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault(); // 새로고침 방지
       handleWrite();
     }

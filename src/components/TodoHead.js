@@ -59,7 +59,7 @@ const TodoHeadBlock = styled.div`
 
 function TodoHead(props) {
   //done:false의 객체만 undoneTasks에 담아줌
-  const undoneTasks = props.todos.filter((todo) => !todo.done);
+  const undoneTasks = props.todos.filter((todo) => todo.process !== 2);
 
   //moment.js 사용
   const dateString = moment().format("YYYY년 MM월 DD일");
