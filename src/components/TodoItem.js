@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { MdMenu, MdClose, MdDone, MdDelete, MdFlag } from "react-icons/md";
+import { MdMenu, MdClose, MdDelete, MdFlag } from "react-icons/md";
 import moment from "moment";
 import "moment/locale/ko"; // 이줄 추가
 import "./Item.css";
@@ -132,7 +132,7 @@ const ViewText = styled.div`
   white-space: pre-wrap; //공백을 코드에 있는 그대로 표시함, 코드에 줄바꿈이 없어도 자동 줄바꿈이 됨
 `;
 function TodoItem(props) {
-  const { todo, removeItem, toggleItem, pinItem, toggleProcessState } = props;
+  const { todo, removeItem, pinItem, toggleProcessState } = props;
   const [processToggle, setProcessToggle] = useState(false);
   const [menuToggle, setMenuToggle] = useState(false);
 

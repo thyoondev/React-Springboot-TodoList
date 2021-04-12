@@ -50,7 +50,6 @@ const showListProcess = (
           key={todo.id}
           todo={todo}
           removeItem={removeItem}
-          toggleItem={toggleItem}
           pinItem={pinItem}
           toggleProcessState={toggleProcessState}
         />
@@ -59,7 +58,7 @@ const showListProcess = (
 };
 
 function TodoList(props) {
-  const { todos, removeItem, toggleItem, pinItem, toggleProcessState } = props;
+  const { todos, removeItem, pinItem, toggleProcessState } = props;
   //ADD pin function and array sort
   todos.sort((a, b) => a.id - b.id);
   todos.sort((a, b) => b.priority - a.priority);
@@ -68,36 +67,15 @@ function TodoList(props) {
     <TodoListBlock>
       <TodoListBlockInner>
         <TodoListProcessTitle processValue={0}>진행 전</TodoListProcessTitle>
-        {showListProcess(
-          todos,
-          0,
-          removeItem,
-          toggleItem,
-          pinItem,
-          toggleProcessState
-        )}
+        {showListProcess(todos, 0, removeItem, pinItem, toggleProcessState)}
       </TodoListBlockInner>
       <TodoListBlockInner>
         <TodoListProcessTitle processValue={1}>진행 중</TodoListProcessTitle>
-        {showListProcess(
-          todos,
-          1,
-          removeItem,
-          toggleItem,
-          pinItem,
-          toggleProcessState
-        )}
+        {showListProcess(todos, 1, removeItem, pinItem, toggleProcessState)}
       </TodoListBlockInner>
       <TodoListBlockInner>
         <TodoListProcessTitle processValue={2}>완료 🙌</TodoListProcessTitle>
-        {showListProcess(
-          todos,
-          2,
-          removeItem,
-          toggleItem,
-          pinItem,
-          toggleProcessState
-        )}
+        {showListProcess(todos, 2, removeItem, pinItem, toggleProcessState)}
       </TodoListBlockInner>
     </TodoListBlock>
   );

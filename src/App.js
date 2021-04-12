@@ -157,7 +157,6 @@ const App = () => {
         <TodoList
           todos={todoList}
           removeItem={removeItem}
-          toggleItem={toggleItem}
           pinItem={pinItem}
           toggleProcessState={toggleProcessState}
         />
