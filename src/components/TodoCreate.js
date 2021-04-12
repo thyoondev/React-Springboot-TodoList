@@ -115,11 +115,12 @@ function TodoCreate(props) {
     createItem({
       todo: {
         id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
-        text: value,
-        done: false,
-        priority: 0,
+        title: value,
+        content: value,
+        priority: 3,
         createdDate: moment().format("YYYYMMDDHHmmss"),
         process: 0,
+        author: "홍길동",
       },
     });
     onValue("");

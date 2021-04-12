@@ -60,8 +60,8 @@ const TodoItemBlock = styled.div`
   border-radius: 8px;
   margin-top: 5px;
   //cursor: pointer;
-  height: 80px;
   width: 100%;
+  height: 80px;
   box-shadow: 1px 1px 3px 0px #ced4da;
   &:hover {
     background-color: #f5f5f5;
@@ -70,7 +70,7 @@ const TodoItemBlock = styled.div`
 
 const Text = styled.div`
   flex: 1;
-  font-size: 16px;
+  font-size: 14px;
   color: #495057;
   word-break: keep-all;
   ${(props) =>
@@ -128,9 +128,48 @@ const ProcessStateCircle = styled.button`
     border: 1px solid gray;
   }
 `;
+
 const ViewText = styled.div`
   white-space: pre-wrap; //공백을 코드에 있는 그대로 표시함, 코드에 줄바꿈이 없어도 자동 줄바꿈이 됨
 `;
+
+const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: pointer;
+`;
+const Priority = styled.div`
+  font-size: 10px;
+  padding: 2px 3px;
+  background-color: #fab1a0;
+  border-radius: 3px;
+  text-align: center;
+  margin: 5px 0px;
+  width: 70px;
+  ${(props) =>
+    props.priority === 0
+      ? css`
+          background-color: #ffaaa7;
+        `
+      : props.priority === 1
+      ? css`
+          background-color: #ffd3b4;
+        `
+      : css`
+          background-color: #d5ecc2;
+        `}
+`;
+
+const Author = styled.div`
+  font-size: 10px;
+  padding: 2px 10px;
+  background-color: #dfe0df;
+  max-width: 30px;
+  border-radius: 3px;
+  color: #495057;
+`;
+
 function TodoItem(props) {
   const { todo, removeItem, pinItem, toggleProcessState } = props;
   const [processToggle, setProcessToggle] = useState(false);
@@ -140,7 +179,7 @@ function TodoItem(props) {
   let addDate = moment(todo.createdDate, "YYYYMMDDHHmmss").fromNow();
 
   //웹 링크 처리
-  let rawString = todo.text;
+  let rawString = todo.title;
   let expUrl = new RegExp(
     "(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)",
     "gi"
@@ -149,19 +188,19 @@ function TodoItem(props) {
 
   //텍스트에 htt 가 포함되면 a태그로 감싸주고 포함되어있지않으면 raw string 그대로 출력
   const getText = () => {
-    if (todo.text.indexOf(result) !== -1) {
+    if (todo.title.indexOf(result) !== -1) {
       return rawString.replace(
         result,
         `<a href="${result}" target="_blank"> ${result} </a>`,
         todo.text
       );
     } else {
-      return todo.text;
+      return todo.title;
     }
   };
 
   return (
-    <TodoItemBlock>
+    <TodoItemBlock title={todo.title}>
       {/* 프로세스 상태 관리 조건부 렌더링 */}
       <div onClick={() => setProcessToggle(!processToggle)}>
         {processToggle ? (
@@ -192,10 +231,16 @@ function TodoItem(props) {
         )}
       </div>
       {/*내용 출력 */}
-      <Text process={todo.process}>
-        <ViewText dangerouslySetInnerHTML={{ __html: getText() }} />
-      </Text>
-
+      <ContentBox onClick={() => alert("클릭테스트")}>
+        <Text process={todo.process}>
+          <ViewText dangerouslySetInnerHTML={{ __html: getText() }} />
+        </Text>
+        <Priority priority={todo.priority}>
+          우선 순위 {todo.priority} {todo.priority === 0 && "🔥"}
+        </Priority>
+        <Author>{todo.author}</Author>
+        <CreateDate>{addDate}</CreateDate>
+      </ContentBox>
       {/* createdDate text
       <CreateDate>{addDate}</CreateDate>*/}
 
@@ -222,15 +267,6 @@ function TodoItem(props) {
           </Menu>
         )}
       </div>
-
-      {/* task pin button }
-      <AddPin onClick={() => pinItem(todo.id)} priority={todo.priority}>
-        <MdFlag />
-      </AddPin>
-      {/* task remove button}
-      <Remove onClick={() => removeItem(todo.id)}>
-        <MdDelete />
-      </Remove>*/}
     </TodoItemBlock>
   );
 }

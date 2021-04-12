@@ -26,7 +26,7 @@ const TodoListProcessTitle = styled.p`
           background-color: #ffeaa7;
         `
       : css`
-          background-color: #55efc4;
+          background-color: #98ddca;
         `}
   width: 60px;
   border-radius: 5px;
@@ -39,7 +39,6 @@ const showListProcess = (
   todos,
   processState,
   removeItem,
-  toggleItem,
   pinItem,
   toggleProcessState
 ) => {
@@ -61,7 +60,7 @@ function TodoList(props) {
   const { todos, removeItem, pinItem, toggleProcessState } = props;
   //ADD pin function and array sort
   todos.sort((a, b) => a.id - b.id);
-  todos.sort((a, b) => b.priority - a.priority);
+  todos.sort((a, b) => a.priority - b.priority);
 
   return (
     <TodoListBlock>
