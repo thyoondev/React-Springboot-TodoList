@@ -1,13 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
+// import { Provider } from "react-redux";
+// import { createStore } from "redux";
 //import './index.css';
 import App from "./App";
+import { TodoProvider } from "./store";
 //import reportWebVitals from './reportWebVitals';
+//import reducer from "./store";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <TodoProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </TodoProvider>,
   document.getElementById("root")
 );
 

@@ -2,6 +2,7 @@
 
 import React from "react";
 import styled, { css } from "styled-components";
+import { useTodoState } from "../store";
 import TodoItem from "./TodoItem";
 
 const TodoListBlock = styled.div`
@@ -35,46 +36,32 @@ const TodoListProcessTitle = styled.p`
 `;
 
 //프로세스 상태에 따라 출력
-const showListProcess = (
-  todos,
-  processState,
-  removeItem,
-  pinItem,
-  toggleProcessState
-) => {
-  return todos.map(
+const showListProcess = (todoList, processValue) => {
+  return todoList.map(
     (todo) =>
-      todo.process === processState && (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          removeItem={removeItem}
-          pinItem={pinItem}
-          toggleProcessState={toggleProcessState}
-        />
-      )
+      todo.process === processValue && <TodoItem key={todo.id} todo={todo} />
   );
 };
 
 function TodoList(props) {
-  const { todos, removeItem, pinItem, toggleProcessState } = props;
+  const todoList = useTodoState();
   //ADD pin function and array sort
-  todos.sort((a, b) => a.id - b.id);
-  todos.sort((a, b) => a.priority - b.priority);
+  todoList.sort((a, b) => a.id - b.id);
+  todoList.sort((a, b) => a.priority - b.priority);
 
   return (
     <TodoListBlock>
       <TodoListBlockInner>
         <TodoListProcessTitle processValue={0}>진행 전</TodoListProcessTitle>
-        {showListProcess(todos, 0, removeItem, pinItem, toggleProcessState)}
+        {showListProcess(todoList, 0)}
       </TodoListBlockInner>
       <TodoListBlockInner>
         <TodoListProcessTitle processValue={1}>진행 중</TodoListProcessTitle>
-        {showListProcess(todos, 1, removeItem, pinItem, toggleProcessState)}
+        {showListProcess(todoList, 1)}
       </TodoListBlockInner>
       <TodoListBlockInner>
         <TodoListProcessTitle processValue={2}>완료 🙌</TodoListProcessTitle>
-        {showListProcess(todos, 2, removeItem, pinItem, toggleProcessState)}
+        {showListProcess(todoList, 2)}
       </TodoListBlockInner>
     </TodoListBlock>
   );

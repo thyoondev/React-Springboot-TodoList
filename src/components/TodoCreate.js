@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
 import moment from "moment";
 import "moment/locale/ko"; // 이줄 추가
+import { useTodoDispatch, useTodoNextId } from "../store";
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -14,7 +15,6 @@ const CircleButton = styled.button`
   &:active {
     background: #20c997;
   }
-
   z-index: 5;
   cursor: pointer;
   width: 80px;
@@ -85,11 +85,12 @@ const Input = styled.textarea`
   height: 120px;
 `;
 
-function TodoCreate(props) {
+function TodoCreate() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  const { createItem, todos } = props;
 
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
   /**
    * styled-components 제어 토글 스위치
    *
@@ -112,15 +113,18 @@ function TodoCreate(props) {
    * @param {*} e
    */
   const handleWrite = () => {
-    createItem({
-      todo: {
-        id: todos.length + 1, //배열 전체 길이에 1씩 더해 id값 만듬
-        title: value,
-        content: value,
-        priority: 3,
-        createdDate: moment().format("YYYYMMDDHHmmss"),
-        process: 0,
-        author: "홍길동",
+    dispatch({
+      type: "CREATE",
+      payload: {
+        todo: {
+          id: nextId.current,
+          title: value,
+          content: value,
+          priority: 3,
+          createdDate: moment().format("YYYYMMDDHHmmss"),
+          process: 0,
+          author: "홍길동",
+        },
       },
     });
     onValue("");
