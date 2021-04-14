@@ -1,8 +1,8 @@
 //게시글 리스트을 개별적으로 뿌려주고 정렬을 하는 컴포넌트
 
 import React from "react";
+import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import { useTodoState } from "../store";
 import TodoItem from "./TodoItem";
 
 const TodoListBlock = styled.div`
@@ -16,7 +16,16 @@ const TodoListBlockInner = styled.div`
   overflow-y: auto;
   //border: 1px solid red;
 `;
-const TodoListProcessTitle = styled.p`
+const TodoListProcessTitleBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const TodoListProcessTitleBoxInner = styled.div`
+  flex: 1;
+`;
+const TodoListProcessTitle = styled.div`
+  max-width: 70px;
   ${(props) =>
     props.processValue === 0
       ? css`
@@ -29,10 +38,12 @@ const TodoListProcessTitle = styled.p`
       : css`
           background-color: #98ddca;
         `}
-  width: 60px;
   border-radius: 5px;
   text-align: center;
   padding: 0px 5px;
+  margin: 10px 0px 10px 32px;
+
+  color: #495057;
 `;
 
 //프로세스 상태에 따라 출력
@@ -44,26 +55,30 @@ const showListProcess = (todoList, processValue) => {
 };
 
 function TodoList(props) {
-  const todoList = useTodoState();
+  const todoList = useSelector((store) => store.todoList);
   //ADD pin function and array sort
   todoList.sort((a, b) => a.id - b.id);
   todoList.sort((a, b) => a.priority - b.priority);
 
   return (
-    <TodoListBlock>
-      <TodoListBlockInner>
-        <TodoListProcessTitle processValue={0}>진행 전</TodoListProcessTitle>
-        {showListProcess(todoList, 0)}
-      </TodoListBlockInner>
-      <TodoListBlockInner>
-        <TodoListProcessTitle processValue={1}>진행 중</TodoListProcessTitle>
-        {showListProcess(todoList, 1)}
-      </TodoListBlockInner>
-      <TodoListBlockInner>
-        <TodoListProcessTitle processValue={2}>완료 🙌</TodoListProcessTitle>
-        {showListProcess(todoList, 2)}
-      </TodoListBlockInner>
-    </TodoListBlock>
+    <>
+      <TodoListProcessTitleBox>
+        <TodoListProcessTitleBoxInner>
+          <TodoListProcessTitle processValue={0}>진행 전</TodoListProcessTitle>
+        </TodoListProcessTitleBoxInner>
+        <TodoListProcessTitleBoxInner>
+          <TodoListProcessTitle processValue={1}>진행 중</TodoListProcessTitle>
+        </TodoListProcessTitleBoxInner>
+        <TodoListProcessTitleBoxInner>
+          <TodoListProcessTitle processValue={2}>완료 🙌</TodoListProcessTitle>
+        </TodoListProcessTitleBoxInner>
+      </TodoListProcessTitleBox>
+      <TodoListBlock>
+        <TodoListBlockInner>{showListProcess(todoList, 0)}</TodoListBlockInner>
+        <TodoListBlockInner>{showListProcess(todoList, 1)}</TodoListBlockInner>
+        <TodoListBlockInner>{showListProcess(todoList, 2)}</TodoListBlockInner>
+      </TodoListBlock>
+    </>
   );
 }
 

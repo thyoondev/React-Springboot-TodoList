@@ -1,19 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 // import { Provider } from "react-redux";
-// import { createStore } from "redux";
 //import './index.css';
 import App from "./App";
-import { TodoProvider } from "./store";
-//import reportWebVitals from './reportWebVitals';
-//import reducer from "./store";
+import reducer from "./store";
+
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(
-  <TodoProvider>
+  <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <App id="root" />
     </React.StrictMode>
-  </TodoProvider>,
+  </Provider>,
   document.getElementById("root")
 );
 

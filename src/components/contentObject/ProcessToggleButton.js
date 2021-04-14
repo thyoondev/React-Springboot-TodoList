@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
-import { useTodoDispatch } from "../../store";
+import { toggleProcess } from "../../store";
 
 const ChangeProcessState = styled.div`
   border: 0px;
@@ -44,10 +45,9 @@ const ProcessStateCircle = styled.button`
 const ProcessToggleButton = (props) => {
   const { todo } = props;
   const [processToggle, setProcessToggle] = useState(false);
-  const dispatch = useTodoDispatch();
+  const dispatch = useDispatch();
   //프로세스 진행 상태 변경
-  const onToggleProcess = (value) =>
-    dispatch({ type: "TOGGLEPROCESS", payload: { id: todo.id, value: value } });
+  const onToggleProcess = (value) => dispatch(toggleProcess(todo.id, value));
 
   return (
     <div onClick={() => setProcessToggle(!processToggle)}>

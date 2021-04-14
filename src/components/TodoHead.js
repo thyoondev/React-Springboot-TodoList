@@ -5,7 +5,7 @@ import styled from "styled-components";
 import moment from "moment";
 import "moment/locale/ko"; // 이줄 추가
 import WeatherApi from "./WeatherApi";
-import { useTodoState } from "../store";
+import { useSelector } from "react-redux";
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
@@ -59,7 +59,7 @@ const TodoHeadBlock = styled.div`
 `;
 
 function TodoHead() {
-  const todoList = useTodoState();
+  const todoList = useSelector((store) => store.todoList);
   //done:false의 객체만 undoneTasks에 담아줌
   const undoneTasks = todoList.filter((todo) => todo.process !== 2);
 

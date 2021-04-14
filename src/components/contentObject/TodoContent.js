@@ -1,7 +1,9 @@
 import moment from "moment";
 import "moment/locale/ko";
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
+import { showModal } from "../../store";
 import "./Item.css";
 
 const Text = styled.div`
@@ -66,10 +68,9 @@ const Author = styled.div`
   border-radius: 3px;
   color: #495057;
 `;
-const Content = (props) => {
+const TodoContent = (props) => {
   const { todo } = props;
   let addDate = moment(todo.createdDate, "YYYYMMDDHHmmss").fromNow();
-
   //웹 링크 처리
   let rawString = todo.title;
   let expUrl = new RegExp(
@@ -90,19 +91,22 @@ const Content = (props) => {
       return todo.title;
     }
   };
-
+  const dispatch = useDispatch();
+  const onModal = () => dispatch(showModal());
   return (
-    <ContentBox>
-      <Text process={todo.process}>
-        <ViewText dangerouslySetInnerHTML={{ __html: getText() }} />
-      </Text>
-      <Priority priority={todo.priority}>
-        우선 순위 {todo.priority} {todo.priority === 0 && "🔥"}
-      </Priority>
-      <Author>{todo.author}</Author>
-      <CreateDate>{addDate}</CreateDate>
-    </ContentBox>
+    <>
+      <ContentBox onClick={onModal}>
+        <Text process={todo.process}>
+          <ViewText dangerouslySetInnerHTML={{ __html: getText() }} />
+        </Text>
+        <Priority priority={todo.priority}>
+          우선 순위 {todo.priority} {todo.priority === 0 && "🔥"}
+        </Priority>
+        <Author>{todo.author}</Author>
+        <CreateDate>{addDate}</CreateDate>
+      </ContentBox>
+    </>
   );
 };
 
-export default Content;
+export default TodoContent;

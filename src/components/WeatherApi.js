@@ -9,10 +9,8 @@ const WeatherApi = () => {
   });
 
   //openWeatherAPI url
-  const [url, setUrl] = useState(
-    "http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=9baac3369dd75739c16d992d23f0b417&lang=kr&units=metric"
-  );
-
+  const url =
+    "http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=9baac3369dd75739c16d992d23f0b417&lang=kr&units=metric";
   /**
    * json형식으로 날씨 api 데이터를 받아옴
    */

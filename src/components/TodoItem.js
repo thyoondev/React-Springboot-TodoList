@@ -1,12 +1,13 @@
 //게시글에 해당하는 배열 오브젝트를 하나하나 따로 받아 화면에 렌더링해주는 컴포넌트
 
-import React from "react";
 import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
 import "moment/locale/ko";
-import { useTodoDispatch } from "../store";
-import Content from "./contentObject/Content";
+import { remove } from "../store";
 import ProcessToggleButton from "./contentObject/ProcessToggleButton";
+import TodoContent from "./contentObject/TodoContent";
+import DetailPage from "./DetailPage";
+import { useDispatch } from "react-redux";
 
 const Remove = styled.div`
   display: flex;
@@ -42,22 +43,24 @@ const TodoItemBlock = styled.div`
 
 function TodoItem(props) {
   const { todo } = props;
-
-  const dispatch = useTodoDispatch();
-  const onRemove = () => dispatch({ type: "REMOVE", payload: { id: todo.id } });
+  const dispatch = useDispatch();
+  const onRemove = () => dispatch(remove(todo.id));
   //배열 오브젝트의 createdDate와 현재 날짜를 비교해 반환해줌
 
   return (
-    <TodoItemBlock title={todo.title}>
-      {/* 프로세스 상태 토글 */}
-      <ProcessToggleButton todo={todo} />
-      {/*내용 출력 */}
-      <Content todo={todo} />
-      {/* 삭제 버튼 */}
-      <Remove>
-        <MdDelete onClick={() => onRemove()} />
-      </Remove>
-    </TodoItemBlock>
+    <>
+      <DetailPage />
+      <TodoItemBlock title={todo.title}>
+        {/* 프로세스 상태 토글 */}
+        <ProcessToggleButton todo={todo} />
+        {/*내용 출력 */}
+        <TodoContent todo={todo} />
+        {/* 삭제 버튼 */}
+        <Remove>
+          <MdDelete onClick={onRemove} />
+        </Remove>
+      </TodoItemBlock>
+    </>
   );
 }
 

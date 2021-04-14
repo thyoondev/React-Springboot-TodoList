@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
 import moment from "moment";
 import "moment/locale/ko"; // 이줄 추가
-import { useTodoDispatch, useTodoNextId } from "../store";
+import { useDispatch } from "react-redux";
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -89,8 +89,7 @@ function TodoCreate() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  const dispatch = useTodoDispatch();
-  const nextId = useTodoNextId();
+  const dispatch = useDispatch();
   /**
    * styled-components 제어 토글 스위치
    *
@@ -117,7 +116,7 @@ function TodoCreate() {
       type: "CREATE",
       payload: {
         todo: {
-          id: nextId.current,
+          id: 16,
           title: value,
           content: value,
           priority: 3,
