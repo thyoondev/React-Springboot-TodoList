@@ -1,18 +1,22 @@
 // 오늘의 날짜, 요일, 할 일 개수 보여주는 컴포넌트
 
-import React from "react";
-import styled from "styled-components";
-import moment from "moment";
-import "moment/locale/ko"; // 이줄 추가
-import WeatherApi from "./WeatherApi";
-import { useSelector } from "react-redux";
+import React from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
+import 'moment/locale/ko'; // 이줄 추가
+import WeatherApi from './WeatherApi';
+import { useSelector } from 'react-redux';
 
 const TodoHeadBlock = styled.div`
-  padding-top: 48px;
+  padding-top: 35px;
   padding-left: 32px;
   padding-right: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 20px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(7.5px);
+  -webkit-backdrop-filter: blur(7.5px);
+  border-radius: 30px 30px 0px 0px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   h1 {
     margin: 0;
     font-size: 36px;
@@ -64,8 +68,8 @@ function TodoHead() {
   const undoneTasks = todoList.filter((todo) => todo.process !== 2);
 
   //moment.js 사용
-  const dateString = moment().format("YYYY년 MM월 DD일");
-  const dayName = moment().format("dd요일");
+  const dateString = moment().format('YYYY년 MM월 DD일');
+  const dayName = moment().format('dd요일');
 
   return (
     <TodoHeadBlock>

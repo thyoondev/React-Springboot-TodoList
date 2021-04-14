@@ -11,6 +11,7 @@ function DedailPage() {
   var subtitle;
 
   const modalIsOpen = useSelector((store) => store.showModal);
+  const todos = useSelector((store) => store.todoList);
   const dispatch = useDispatch();
   const offModal = () => dispatch(closeModal());
 
@@ -39,6 +40,7 @@ function DedailPage() {
       >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
         <div>모달 입니다.</div>
+        <div>제목 : <input type="text" value={todos[0].title} /></div>
         <form>
           <input />
           <button onClick={offModal}>닫기</button>

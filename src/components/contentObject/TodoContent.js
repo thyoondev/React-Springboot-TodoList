@@ -1,21 +1,21 @@
-import moment from "moment";
-import "moment/locale/ko";
-import React from "react";
-import { useDispatch } from "react-redux";
-import styled, { css } from "styled-components";
-import { showModal } from "../../store";
-import "./Item.css";
+import moment from 'moment';
+import 'moment/locale/ko';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import styled, { css } from 'styled-components';
+import { showModal } from '../../store';
+import './Item.css';
 
 const Text = styled.div`
   flex: 1;
-  font-size: 14px;
+  font-size: 16px;
   color: #495057;
   word-break: keep-all;
-  ${(props) =>
+  /* ${(props) =>
     props.process === 2 &&
     css`
       color: #ced4da;
-    `}
+    `} */
 `;
 
 const CreateDate = styled.div`
@@ -70,12 +70,12 @@ const Author = styled.div`
 `;
 const TodoContent = (props) => {
   const { todo } = props;
-  let addDate = moment(todo.createdDate, "YYYYMMDDHHmmss").fromNow();
+  let addDate = moment(todo.createdDate, 'YYYYMMDDHHmmss').fromNow();
   //웹 링크 처리
   let rawString = todo.title;
   let expUrl = new RegExp(
-    "(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)",
-    "gi"
+    '(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)',
+    'gi',
   );
   let result = rawString.match(expUrl);
 
@@ -85,7 +85,7 @@ const TodoContent = (props) => {
       return rawString.replace(
         result,
         `<a href="${result}" target="_blank"> ${result} </a>`,
-        todo.text
+        todo.text,
       );
     } else {
       return todo.title;
@@ -100,7 +100,7 @@ const TodoContent = (props) => {
           <ViewText dangerouslySetInnerHTML={{ __html: getText() }} />
         </Text>
         <Priority priority={todo.priority}>
-          우선 순위 {todo.priority} {todo.priority === 0 && "🔥"}
+          우선 순위 {todo.priority} {todo.priority === 0 && '🔥'}
         </Priority>
         <Author>{todo.author}</Author>
         <CreateDate>{addDate}</CreateDate>
