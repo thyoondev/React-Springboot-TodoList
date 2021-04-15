@@ -1,9 +1,10 @@
 //게시글 리스트을 개별적으로 뿌려주고 정렬을 하는 컴포넌트
 
-import React from "react";
-import { useSelector } from "react-redux";
-import styled, { css } from "styled-components";
-import TodoItem from "./TodoItem";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled, { css } from 'styled-components';
+import TodoItem from './TodoItem';
+import DetailPage from './DetailPage';
 
 const TodoListBlock = styled.div`
   display: flex;
@@ -50,7 +51,7 @@ const TodoListProcessTitle = styled.div`
 const showListProcess = (todoList, processValue) => {
   return todoList.map(
     (todo) =>
-      todo.process === processValue && <TodoItem key={todo.id} todo={todo} />
+      todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
   );
 };
 
@@ -62,6 +63,7 @@ function TodoList(props) {
 
   return (
     <>
+      <DetailPage />
       <TodoListProcessTitleBox>
         <TodoListProcessTitleBoxInner>
           <TodoListProcessTitle processValue={0}>진행 전</TodoListProcessTitle>

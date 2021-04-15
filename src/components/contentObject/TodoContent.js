@@ -92,7 +92,7 @@ const TodoContent = (props) => {
     }
   };
   const dispatch = useDispatch();
-  const onModal = () => dispatch(showModal());
+  const onModal = () => dispatch(showModal(todo.id));
   return (
     <>
       <ContentBox onClick={onModal}>

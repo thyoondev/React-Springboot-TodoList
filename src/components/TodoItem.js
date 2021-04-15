@@ -6,7 +6,7 @@ import 'moment/locale/ko';
 import { remove } from '../store';
 import ProcessToggleButton from './contentObject/ProcessToggleButton';
 import TodoContent from './contentObject/TodoContent';
-import DetailPage from './DetailPage';
+
 import { useDispatch } from 'react-redux';
 
 const Remove = styled.div`
@@ -53,7 +53,6 @@ function TodoItem(props) {
 
   return (
     <>
-      <DetailPage />
       <TodoItemBlock title={todo.title}>
         {/* 프로세스 상태 토글 */}
         <ProcessToggleButton todo={todo} />

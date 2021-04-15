@@ -6,7 +6,7 @@ export const toggleProcess = (id, value) => ({
   payload: { id: id, value: value },
 });
 export const remove = (id) => ({ type: 'REMOVE', payload: { id: id } });
-export const showModal = () => ({ type: 'SHOWMODAL' });
+export const showModal = (id) => ({ type: 'SHOWMODAL', payload: { id: id } });
 export const closeModal = () => ({ type: 'CLOSEMODAL' });
 //상태
 
@@ -24,7 +24,7 @@ const inistate = {
     {
       id: 2,
       title: 'kakao 로그인',
-      content: 'kakao 로그인',
+      content: '카카오톡 아이디로 로그인 구현하기 스프링 시큐리티 이용?',
       priority: 0,
       createdDate: 20210407122315,
       process: 0,
@@ -122,6 +122,7 @@ const inistate = {
     },
   ],
   showModal: false,
+  itemNumber: 0,
 };
 
 //액셕의 결과를 걸러내는 친구
@@ -167,7 +168,11 @@ const reducer = (state = inistate, action) => {
         ),
       };
     case 'SHOWMODAL':
-      return { ...state, showModal: true };
+      return {
+        ...state,
+        showModal: true,
+        itemNumber: action.payload.id,
+      };
     case 'CLOSEMODAL':
       return { ...state, showModal: false };
     default:
