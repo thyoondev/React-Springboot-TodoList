@@ -1,18 +1,20 @@
 .Modal {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   right: auto;
   bottom: auto;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
   outline: none;
   padding: 20px;
   width: 500px;
-  height: 500px;
+  height: 600px;
   z-index: 10;
   box-shadow: 1px 1px 3px 0px #ced4da;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .Overlay {
@@ -21,5 +23,5 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: rgba(0, 0, 0, 0.02);
 }

@@ -14,8 +14,8 @@ const inistate = {
   todoList: [
     {
       id: 1,
-      title: '쿼리 캐싱 로직 재작성',
-      content: '쿼리 캐싱 로직 재작성',
+      title: '연남동 땡스오트가기',
+      content: '연남동 땡스오트가기',
       priority: 1,
       createdDate: 20210404172315,
       process: 0,

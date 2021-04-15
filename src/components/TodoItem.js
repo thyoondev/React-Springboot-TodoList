@@ -30,10 +30,8 @@ const TodoItemBlock = styled.div`
   margin-top: 5px;
   width: 263.89px;
   height: 80px;
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-  backdrop-filter: blur(7.5px);
-  -webkit-backdrop-filter: blur(7.5px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   white-space: nowrap;

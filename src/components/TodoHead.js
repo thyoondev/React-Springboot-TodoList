@@ -19,7 +19,7 @@ const TodoHeadBlock = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.18);
   h1 {
     margin: 0;
-    font-size: 36px;
+    font-size: 38px;
     color: #343a40;
   }
   .day {

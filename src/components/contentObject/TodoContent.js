@@ -8,7 +8,7 @@ import './Item.css';
 
 const Text = styled.div`
   flex: 1;
-  font-size: 16px;
+  font-size: 15px;
   color: #495057;
   word-break: keep-all;
   /* ${(props) =>
