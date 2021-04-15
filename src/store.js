@@ -121,8 +121,7 @@ const inistate = {
       author: '직장인',
     },
   ],
-  showModal: false,
-  itemNumber: 0,
+  showModal: { show: false, id: -1 },
 };
 
 //액셕의 결과를 걸러내는 친구
@@ -168,13 +167,9 @@ const reducer = (state = inistate, action) => {
         ),
       };
     case 'SHOWMODAL':
-      return {
-        ...state,
-        showModal: true,
-        itemNumber: action.payload.id,
-      };
+      return { ...state, showModal: { show: true, id: action.payload.id } };
     case 'CLOSEMODAL':
-      return { ...state, showModal: false };
+      return { ...state, showModal: { show: false, id: -1 } };
     default:
       return state;
   }

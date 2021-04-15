@@ -8,8 +8,9 @@ import './Modal.css';
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
 
-function DedailPage() {
-  var subtitle;
+function DedailPage(props) {
+  const { title, createdDate, process, priority, author, content } = props;
+  console.log(title, createdDate, process, priority, author, content);
   const modalIsOpen = useSelector((store) => store.showModal);
   //const todos = useSelector((store) => store.todoList);
   const dispatch = useDispatch();
@@ -38,11 +39,7 @@ function DedailPage() {
     flex-direction: column;
     width: 60%;
   `;
-  const todoList = useSelector((store) => store.todoList);
-  const id = useSelector((store) => store.itemNumber);
-  const todo = todoList.filter((todo) => todo.id === id && { ...todo });
-  console.log(todo);
-  //console.log(todo);
+
   return (
     <div>
       <Modal
@@ -55,7 +52,7 @@ function DedailPage() {
       >
         {/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2> */}
         <ModalBox>
-          <input type="text" value={todo[0].title} className="input title" />
+          <input type="text" value={title} className="input title" />
           <br />
           <InfoBox>
             <InfoTitle>
@@ -74,28 +71,26 @@ function DedailPage() {
             </InfoTitle>
             <InfoContent>
               <div>
-                <input
-                  type="text"
-                  value={todo[0].createdDate}
-                  className="input"
-                />
+                <input type="text" value={createdDate} className="input" />
               </div>
               <div>
-                <input type="text" value={todo[0].process} className="input" />
+                <input type="text" value={process} className="input" />
               </div>
               <div>
-                <input type="text" value={todo[0].priority} className="input" />
+                <input type="text" value={priority} className="input" />
               </div>
               <div>
-                <input type="text" value={todo[0].author} className="input" />
+                <input type="text" value={author} className="input" />
               </div>
             </InfoContent>
           </InfoBox>
           <div>
-            <textarea type="text" value={todo[0].content} className="content" />
+            <textarea type="text" value={content} className="content" />
           </div>
         </ModalBox>
-        <form>{/* <button onClick={offModal}>닫기</button> */}</form>
+        <form>
+          <button onClick={offModal}>닫기</button>
+        </form>
       </Modal>
     </div>
   );

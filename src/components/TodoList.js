@@ -9,12 +9,22 @@ import DetailPage from './DetailPage';
 const TodoListBlock = styled.div`
   display: flex;
   overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 const TodoListBlockInner = styled.div`
   flex: 1;
   padding: 20px 32px;
   padding-bottom: 48px;
   overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
   //border: 1px solid red;
 `;
 const TodoListProcessTitleBox = styled.div`
@@ -57,13 +67,27 @@ const showListProcess = (todoList, processValue) => {
 
 function TodoList(props) {
   const todoList = useSelector((store) => store.todoList);
+  const modal = useSelector((store) => store.showModal);
   //ADD pin function and array sort
   todoList.sort((a, b) => a.id - b.id);
   todoList.sort((a, b) => a.priority - b.priority);
 
   return (
     <>
-      <DetailPage />
+      {modal.show &&
+        todoList.map(
+          (todo) =>
+            todo.id === modal.id && (
+              <DetailPage
+                title={todo.title}
+                createdDate={todo.createdDate}
+                process={todo.process}
+                priority={todo.priority}
+                author={todo.author}
+                content={todo.content}
+              />
+            ),
+        )}
       <TodoListProcessTitleBox>
         <TodoListProcessTitleBoxInner>
           <TodoListProcessTitle processValue={0}>진행 전</TodoListProcessTitle>

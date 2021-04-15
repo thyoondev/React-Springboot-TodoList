@@ -1,10 +1,9 @@
 import React from 'react';
-import styled, { createGlobalStyle, css } from 'styled-components';
 import TodoTemplate from './components/TodoTemplate';
 import TodoHead from './components/TodoHead';
 import TodoList from './components/TodoList';
 import TodoCreate from './components/TodoCreate';
-import './wave.css';
+import './background.css';
 
 const App = () => {
   return (
@@ -15,10 +14,10 @@ const App = () => {
           <TodoList />
           <TodoCreate />
         </TodoTemplate>
-        <div class="wave wave1"></div>
-        <div class="wave wave2"></div>
-        <div class="wave wave3"></div>
-        <div class="wave wave4"></div>
+        <div className="wave wave1"></div>
+        <div className="wave wave2"></div>
+        <div className="wave wave3"></div>
+        <div className="wave wave4"></div>
       </section>
     </>
   );
