@@ -49,21 +49,33 @@ const Priority = styled.div`
   ${(props) =>
     props.priority === 0
       ? css`
-          background-color: #ffaaa7;
+          background-color: #ffadad;
         `
       : props.priority === 1
       ? css`
-          background-color: #ffd3b4;
+          background-color: #ffd6a5;
+        `
+      : props.priority === 2
+      ? css`
+          background-color: #fdffb6;
+        `
+      : props.priority === 3
+      ? css`
+          background-color: #caffbf;
+        `
+      : props.priority === 4
+      ? css`
+          background-color: #9bf6ff;
         `
       : css`
-          background-color: #d5ecc2;
+          background-color: #a0c4ff;
         `}
 `;
 
 const Author = styled.div`
   font-size: 10px;
   padding: 2px 10px;
-  background-color: #dfe0df;
+  background-color: #e5e5e5;
   max-width: 30px;
   border-radius: 3px;
   color: #495057;
@@ -103,7 +115,7 @@ const TodoContent = (props) => {
           우선 순위 {todo.priority} {todo.priority === 0 && '🔥'}
         </Priority>
         <Author>{todo.author}</Author>
-        <CreateDate>{addDate}</CreateDate>
+        {/* <CreateDate>{addDate}</CreateDate> */}
       </ContentBox>
     </>
   );

@@ -1,11 +1,11 @@
 //하단영역 입력창 제어와 글 입력을 하는 컴포넌트
 
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import { MdAdd } from "react-icons/md";
-import moment from "moment";
-import "moment/locale/ko"; // 이줄 추가
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { MdAdd } from 'react-icons/md';
+import moment from 'moment';
+import 'moment/locale/ko'; // 이줄 추가
+import { useDispatch, useSelector } from 'react-redux';
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -87,8 +87,8 @@ const Input = styled.textarea`
 
 function TodoCreate() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-
+  const [value, setValue] = useState('');
+  const todoList = useSelector((store) => store.todoList);
   const dispatch = useDispatch();
   /**
    * styled-components 제어 토글 스위치
@@ -113,20 +113,20 @@ function TodoCreate() {
    */
   const handleWrite = () => {
     dispatch({
-      type: "CREATE",
+      type: 'CREATE',
       payload: {
         todo: {
-          id: 16,
+          id: todoList.length + 1,
           title: value,
           content: value,
           priority: 3,
-          createdDate: moment().format("YYYYMMDDHHmmss"),
+          createdDate: moment().format('YYYYMMDDHHmmss'),
           process: 0,
-          author: "홍길동",
+          author: '홍길동',
         },
       },
     });
-    onValue("");
+    onValue('');
   };
 
   /**
@@ -149,7 +149,7 @@ function TodoCreate() {
         <InsertFormPositioner>
           <InsertForm>
             <Input
-              autoFocus
+              //autoFocus
               placeholder="할 일을 입력 후, Enter 를 누르세요"
               onChange={onChange}
               value={value}

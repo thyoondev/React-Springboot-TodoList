@@ -25,10 +25,9 @@ const Remove = styled.div`
 const TodoItemBlock = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  margin-top: 5px;
-  width: 263.89px;
+  padding: 15px;
+  margin-top: 6px;
+  width: 260px;
   height: 80px;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
@@ -55,9 +54,9 @@ function TodoItem(props) {
     <>
       <TodoItemBlock title={todo.title}>
         {/* 프로세스 상태 토글 */}
-        <ProcessToggleButton todo={todo} />
+        {/* <ProcessToggleButton todo={todo} /> */}
         {/*내용 출력 */}
-        <TodoContent todo={todo} />
+        <TodoContent todo={todo} onClick={() => props.clickHandler(todo)} />
         {/* 삭제 버튼 */}
         <Remove>
           <MdDelete onClick={onRemove} />

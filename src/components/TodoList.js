@@ -57,14 +57,6 @@ const TodoListProcessTitle = styled.div`
   color: #495057;
 `;
 
-//프로세스 상태에 따라 출력
-const showListProcess = (todoList, processValue) => {
-  return todoList.map(
-    (todo) =>
-      todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
-  );
-};
-
 function TodoList(props) {
   const todoList = useSelector((store) => store.todoList);
   const modal = useSelector((store) => store.showModal);
@@ -72,22 +64,22 @@ function TodoList(props) {
   todoList.sort((a, b) => a.id - b.id);
   todoList.sort((a, b) => a.priority - b.priority);
 
+  //프로세스 상태에 따라 출력
+  const showListProcess = (todoList, processValue) => {
+    return todoList.map(
+      (todo) =>
+        todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
+    );
+  };
+
   return (
     <>
       {modal.show &&
         todoList.map(
           (todo) =>
-            todo.id === modal.id && (
-              <DetailPage
-                title={todo.title}
-                createdDate={todo.createdDate}
-                process={todo.process}
-                priority={todo.priority}
-                author={todo.author}
-                content={todo.content}
-              />
-            ),
+            todo.id === modal.id && <DetailPage key={todo.id} todo={todo} />,
         )}
+
       <TodoListProcessTitleBox>
         <TodoListProcessTitleBoxInner>
           <TodoListProcessTitle processValue={0}>진행 전</TodoListProcessTitle>

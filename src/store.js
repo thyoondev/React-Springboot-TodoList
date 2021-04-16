@@ -133,6 +133,25 @@ const reducer = (state = inistate, action) => {
      */
     case 'CREATE':
       return { ...state, todoList: state.todoList.concat(action.payload.todo) };
+    /**
+     * 게시글 글 수정
+     *
+     */
+    case 'EDIT':
+      return {
+        ...state,
+        todoList: state.todoList.map((todo) =>
+          todo.id === action.payload.todo.id
+            ? {
+                ...todo,
+                title: action.payload.todo.title,
+                content: action.payload.todo.content,
+                priority: action.payload.todo.priority,
+                process: action.payload.todo.process,
+              }
+            : todo,
+        ),
+      };
 
     /**
      * 게시글 프로세스 상태 변경
