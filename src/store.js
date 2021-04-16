@@ -6,8 +6,13 @@ export const toggleProcess = (id, value) => ({
   payload: { id: id, value: value },
 });
 export const remove = (id) => ({ type: 'REMOVE', payload: { id: id } });
-export const showModal = (id) => ({ type: 'SHOWMODAL', payload: { id: id } });
-export const closeModal = () => ({ type: 'CLOSEMODAL' });
+export const showModalEdit = (id) => ({
+  type: 'SHOWMODALEDIT',
+  payload: { id: id },
+});
+export const closeModalEdit = () => ({ type: 'CLOSEMODALEDIT' });
+export const showModalCreate = () => ({ type: 'SHOWMODALCREATE' });
+export const closeModalCreate = () => ({ type: 'CLOSEMODALCREATE' });
 //상태
 
 const inistate = {
@@ -121,7 +126,7 @@ const inistate = {
       author: '직장인',
     },
   ],
-  showModal: { show: false, id: -1 },
+  showModal: { showEdit: false, id: -1, showCreate: false },
 };
 
 //액셕의 결과를 걸러내는 친구
@@ -185,10 +190,30 @@ const reducer = (state = inistate, action) => {
           (todo) => todo.id !== action.payload.id,
         ),
       };
-    case 'SHOWMODAL':
-      return { ...state, showModal: { show: true, id: action.payload.id } };
-    case 'CLOSEMODAL':
-      return { ...state, showModal: { show: false, id: -1 } };
+    case 'SHOWMODALEDIT':
+      return {
+        ...state,
+        showModal: {
+          ...state.showModal,
+          showEdit: true,
+          id: action.payload.id,
+        },
+      };
+    case 'CLOSEMODALEDIT':
+      return {
+        ...state,
+        showModal: { ...state.showModal, showEdit: false, id: -1 },
+      };
+    case 'SHOWMODALCREATE':
+      return {
+        ...state,
+        showModal: { ...state.showModal, showCreate: true },
+      };
+    case 'CLOSEMODALCREATE':
+      return {
+        ...state,
+        showModal: { ...state.showModal, showCreate: false },
+      };
     default:
       return state;
   }

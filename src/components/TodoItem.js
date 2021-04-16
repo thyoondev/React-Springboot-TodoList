@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { MdDelete } from 'react-icons/md';
 import 'moment/locale/ko';
 import { remove } from '../store';
-import ProcessToggleButton from './contentObject/ProcessToggleButton';
 import TodoContent from './contentObject/TodoContent';
 
 import { useDispatch } from 'react-redux';
@@ -53,8 +52,6 @@ function TodoItem(props) {
   return (
     <>
       <TodoItemBlock title={todo.title}>
-        {/* 프로세스 상태 토글 */}
-        {/* <ProcessToggleButton todo={todo} /> */}
         {/*내용 출력 */}
         <TodoContent todo={todo} onClick={() => props.clickHandler(todo)} />
         {/* 삭제 버튼 */}

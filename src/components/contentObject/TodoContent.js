@@ -1,9 +1,7 @@
-import moment from 'moment';
-import 'moment/locale/ko';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { showModal } from '../../store';
+import { showModalEdit } from '../../store';
 import './Item.css';
 
 const Text = styled.div`
@@ -17,16 +15,6 @@ const Text = styled.div`
       color: #ced4da;
     `} */
 `;
-
-const CreateDate = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  color: gray;
-  font-size: 6px;
-  font-style: italic;
-  margin-right: 10px;
-`;
-
 const ViewText = styled.div`
   white-space: pre-wrap; //공백을 코드에 있는 그대로 표시함, 코드에 줄바꿈이 없어도 자동 줄바꿈이 됨
 `;
@@ -82,7 +70,6 @@ const Author = styled.div`
 `;
 const TodoContent = (props) => {
   const { todo } = props;
-  let addDate = moment(todo.createdDate, 'YYYYMMDDHHmmss').fromNow();
   //웹 링크 처리
   let rawString = todo.title;
   let expUrl = new RegExp(
@@ -104,10 +91,10 @@ const TodoContent = (props) => {
     }
   };
   const dispatch = useDispatch();
-  const onModal = () => dispatch(showModal(todo.id));
+  const onModalEdit = () => dispatch(showModalEdit(todo.id));
   return (
     <>
-      <ContentBox onClick={onModal}>
+      <ContentBox onClick={onModalEdit}>
         <Text process={todo.process}>
           <ViewText dangerouslySetInnerHTML={{ __html: getText() }} />
         </Text>
@@ -115,7 +102,6 @@ const TodoContent = (props) => {
           우선 순위 {todo.priority} {todo.priority === 0 && '🔥'}
         </Priority>
         <Author>{todo.author}</Author>
-        {/* <CreateDate>{addDate}</CreateDate> */}
       </ContentBox>
     </>
   );

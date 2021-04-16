@@ -1,10 +1,13 @@
 //게시글 리스트을 개별적으로 뿌려주고 정렬을 하는 컴포넌트
 
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { MdAdd } from 'react-icons/md';
 import TodoItem from './TodoItem';
-import DetailPage from './DetailPage';
+import ModalEdit from './ModalEdit';
+import { showModalCreate } from '../store';
+import ModalWrite from './ModalWrite';
 
 const TodoListBlock = styled.div`
   display: flex;
@@ -40,14 +43,14 @@ const TodoListProcessTitle = styled.div`
   ${(props) =>
     props.processValue === 0
       ? css`
-          background-color: #fab1a0;
+          background-color: #fec3a6;
         `
       : props.processValue === 1
       ? css`
-          background-color: #ffeaa7;
+          background-color: #efe9ae;
         `
       : css`
-          background-color: #98ddca;
+          background-color: #cdeac0;
         `}
   border-radius: 5px;
   text-align: center;
@@ -57,6 +60,19 @@ const TodoListProcessTitle = styled.div`
   color: #495057;
 `;
 
+const CreateItem = styled.div`
+  color: #495057;
+  cursor: pointer;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  width: 260px;
+  margin-top: 6px;
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+`;
 function TodoList(props) {
   const todoList = useSelector((store) => store.todoList);
   const modal = useSelector((store) => store.showModal);
@@ -72,13 +88,16 @@ function TodoList(props) {
     );
   };
 
+  const dispatch = useDispatch();
+  const onModalCreate = () => dispatch(showModalCreate());
   return (
     <>
-      {modal.show &&
+      {modal.showEdit &&
         todoList.map(
           (todo) =>
-            todo.id === modal.id && <DetailPage key={todo.id} todo={todo} />,
+            todo.id === modal.id && <ModalEdit key={todo.id} todo={todo} />,
         )}
+      {modal.showCreate && <ModalWrite />}
 
       <TodoListProcessTitleBox>
         <TodoListProcessTitleBoxInner>
@@ -92,9 +111,27 @@ function TodoList(props) {
         </TodoListProcessTitleBoxInner>
       </TodoListProcessTitleBox>
       <TodoListBlock>
-        <TodoListBlockInner>{showListProcess(todoList, 0)}</TodoListBlockInner>
-        <TodoListBlockInner>{showListProcess(todoList, 1)}</TodoListBlockInner>
-        <TodoListBlockInner>{showListProcess(todoList, 2)}</TodoListBlockInner>
+        <TodoListBlockInner>
+          {showListProcess(todoList, 0)}
+          <CreateItem onClick={onModalCreate}>
+            <MdAdd />
+            새로 만들기
+          </CreateItem>
+        </TodoListBlockInner>
+        <TodoListBlockInner>
+          {showListProcess(todoList, 1)}
+          <CreateItem onClick={onModalCreate}>
+            <MdAdd />
+            새로 만들기
+          </CreateItem>
+        </TodoListBlockInner>
+        <TodoListBlockInner>
+          {showListProcess(todoList, 2)}
+          <CreateItem onClick={onModalCreate}>
+            <MdAdd />
+            새로 만들기
+          </CreateItem>
+        </TodoListBlockInner>
       </TodoListBlock>
     </>
   );

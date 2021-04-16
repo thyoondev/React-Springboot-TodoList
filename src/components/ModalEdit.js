@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModal } from '../store';
+import { closeModalEdit } from '../store';
 import './Modal.css';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
@@ -34,11 +34,11 @@ const InfoContent = styled.div`
 function DetailPage(props) {
   const dispatch = useDispatch();
 
-  const modalIsOpen = useSelector((store) => store.showModal.show);
+  const modalIsOpen = useSelector((store) => store.showModal.showEdit);
 
   const { todo } = props;
   const [inputs, setInputs] = useState({ ...todo });
-  const { id, title, createdDate, process, priority, author, content } = inputs;
+  const { title, createdDate, process, priority, author, content } = inputs;
   const onChange = (e) => {
     const { name, value } = e.target;
     setInputs({
@@ -57,23 +57,23 @@ function DetailPage(props) {
       payload: {
         todo: {
           id: todo.id,
-          title: inputs.title,
-          content: inputs.content,
-          priority: Number(inputs.priority),
-          createdDate: inputs.createdDate,
-          process: Number(inputs.process),
-          author: inputs.author,
+          title: title,
+          content: content,
+          priority: Number(priority),
+          createdDate: createdDate,
+          process: Number(process),
+          author: author,
         },
       },
     });
   };
 
   const offModal = () => {
-    onEdit();
-    dispatch(closeModal());
+    title !== '' && onEdit();
+    dispatch(closeModalEdit());
   };
 
-  const _createdDate = moment(inputs.createdDate, 'YYYYMMDDHHmmss').format(
+  const _createdDate = moment(createdDate, 'YYYYMMDDHHmmss').format(
     'YYYY년 MM월 DD일 A hh:mm',
   );
 
@@ -91,10 +91,11 @@ function DetailPage(props) {
         <ModalBox>
           <input
             type="text"
-            value={inputs.title}
+            value={title}
             className="input title"
             name="title"
             onChange={onChange}
+            placeholder="제목 없음"
           />
           <br />
           <InfoBox>
@@ -118,13 +119,13 @@ function DetailPage(props) {
                   type="text"
                   value={_createdDate}
                   className="input"
-                  onChange={onChange}
+                  readOnly
                 />
               </div>
               <div>
                 <select
                   name="process"
-                  value={inputs.process}
+                  value={process}
                   className="selectBox"
                   onChange={onChange}
                 >
@@ -136,7 +137,7 @@ function DetailPage(props) {
               <div>
                 <select
                   name="priority"
-                  value={inputs.priority}
+                  value={priority}
                   className="selectBox"
                   onChange={onChange}
                 >
@@ -152,9 +153,9 @@ function DetailPage(props) {
                 <input
                   type="text"
                   name="author"
-                  value={inputs.author}
+                  value={author}
                   className="input"
-                  onChange={onChange}
+                  readOnly
                 />
               </div>
             </InfoContent>
@@ -162,10 +163,11 @@ function DetailPage(props) {
           <div>
             <textarea
               type="text"
-              value={inputs.content}
+              value={content}
               className="content"
               name="content"
               onChange={onChange}
+              placeholder="내용을 입력해 주세요."
             />
           </div>
         </ModalBox>
