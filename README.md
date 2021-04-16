@@ -9,15 +9,15 @@
 
 ## 사용 예제
 
-| 입력창 가림 상태                                                                       | 입력창 보임 상태                                                                        |
-| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| ![입력창 가림](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/TodoList/11.png) | ![입력창 보임](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/TodoList/222.png) |
+| 메인화면                                                                           | 모달창 보임                                                                           |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| ![메인화면](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/TodoList/1.PNG) | ![모달창 보임](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/TodoList/2.PNG) |
 
-- 할 일 작성 및 보기
-- 입력창 토글 버튼
-- 완료된 작업 토글 버튼
-- 작업 삭제 버튼
-- 작업 상단 고정 버튼
+- 할 일 작성 및 수정, 보기
+- 우선순위 지정 기능
+- 진행사항 설정 기능
+- 할 일 삭제 버튼
+- 현재 날씨 api로 받아오기
 
 ## 개발 환경 설정
 
@@ -25,14 +25,45 @@
 
 ```sh
   "dependencies": {
+    "antd": "^4.15.1",
     "moment": "^2.29.1",
     "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
+    "react-modal": "^3.12.1",
+    "react-moment": "^1.1.1",
+    "react-redux": "^7.2.3",
+    "react-scripts": "4.0.3",
+    "react-string-replace": "^0.4.4",
+    "redux": "^4.0.5",
     "styled-components": "^5.2.3",
+    "web-vitals": "^1.0.1"
 ```
+
+- 업데이트되고나서 사용하지 않는 패기지도 있다.
 
 ## 업데이트 내역
 
+- Commits on Apr 16, 2021
+  - docs : readme.md 수정
+  - feat : Modal에서 글작성 기능 추가
+  - feat : modal창에서 글수정 기능 추가
+- Commits on Apr 15, 2021
+  - fix : 첫 렌더부터 modal창까지 렌더하는 버그 수정
+  - fix : 모달 창 중복되서 열리는 것 수정 및 모달 창에 객체 담기
+  - feat : 배경 및 글꼴 추가
+- Commits on Apr 14, 2021
+  - fix : css 변경
+  - feat : modal 추가 및 redux 수정
+- Commits on Apr 13, 2021
+  - refactor : 상태관리 redux로 할 수 있게 리팩토링 및 파일 구조 변경
+- Commits on Apr 12, 2021
+  - feat : 우선순위 세분화 및 작성자 추가
+  - fix : 사용하지 않는 함수 제거
+  - fix : 레이아웃 변경 및 진행 상태 추가
 - Commits on Apr 9, 2021
+  - feat : text에 있는 url 이동, 줄 바꿈 입력
+  - refactor : weatherAPI 따로 컴포넌트화(할 일 갯수 변경시 리렌더링 방지)
   - docs : readme.md 수정
   - refactor : TodoCreate 구조변경
 - Commits on Apr 8, 2021
