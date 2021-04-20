@@ -18,11 +18,13 @@ export const showModalEdit = (id) => ({
 export const closeModalEdit = () => ({ type: 'CLOSEMODALEDIT' });
 export const showModalCreate = () => ({ type: 'SHOWMODALCREATE' });
 export const closeModalCreate = () => ({ type: 'CLOSEMODALCREATE' });
+export const toggleDarkMode = () => ({ type: 'TOGGLEDARK' });
 //상태
 
 const inistate = {
   todoList: [],
   showModal: { showEdit: false, id: -1, showCreate: false },
+  isDarkModeActive: false,
 };
 
 //액션의 결과를 걸러내는 친구
@@ -114,6 +116,11 @@ const reducer = (state = inistate, action) => {
       return {
         ...state,
         showModal: { ...state.showModal, showCreate: false },
+      };
+    case 'TOGGLEDARK':
+      return {
+        ...state,
+        isDarkModeActive: !state.isDarkModeActive,
       };
     default:
       return state;

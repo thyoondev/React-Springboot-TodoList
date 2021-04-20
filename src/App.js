@@ -3,11 +3,20 @@ import TodoTemplate from './components/TodoTemplate';
 import TodoHead from './components/TodoHead';
 import TodoList from './components/TodoList';
 import './background.css';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const App = () => {
+  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
   return (
     <>
-      <section>
+      <section
+        style={
+          isDarkModeActive
+            ? { background: '#424642' }
+            : { background: '#aeddef' }
+        }
+      >
         <TodoTemplate>
           <TodoHead />
           <TodoList />

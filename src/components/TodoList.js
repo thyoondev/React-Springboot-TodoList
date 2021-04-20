@@ -17,6 +17,9 @@ const TodoListBlock = styled.div`
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 const TodoListBlockInner = styled.div`
   flex: 1;
@@ -28,12 +31,21 @@ const TodoListBlockInner = styled.div`
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
-  //border: 1px solid red;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding-top: 0px;
+
+  }
 `;
 const TodoListProcessTitleBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const TodoListProcessTitleBoxInner = styled.div`
   flex: 1;
@@ -56,7 +68,6 @@ const TodoListProcessTitle = styled.div`
   text-align: center;
   padding: 0px 5px;
   margin: 10px 0px 10px 32px;
-
   color: #495057;
 `;
 
@@ -67,12 +78,39 @@ const CreateItem = styled.div`
   display: flex;
   align-items: center;
   border-radius: 20px;
-  width: 260px;
+  width: 90%;
   margin-top: 6px;
   &:hover {
     background: rgba(0, 0, 0, 0.1);
   }
 `;
+
+const TodoMediaTitle = styled.div`
+  display: none;
+  min-width: 480px;
+  height: 30px;
+  ${(props) =>
+    props.processValue === 0
+      ? css`
+          background-color: #fec3a6;
+        `
+      : props.processValue === 1
+      ? css`
+          background-color: #efe9ae;
+        `
+      : css`
+          background-color: #cdeac0;
+        `}
+  border-radius: 5px;
+  text-align: center;
+  margin: 0px 0px 5px 0px;
+  padding: 0px 5px;
+  color: #495057;
+  @media screen and (max-width: 768px) {
+    display: flex;
+  }
+`;
+
 function TodoList(props) {
   const todoList = useSelector((store) => store.todoList);
   const modal = useSelector((store) => store.showModal);
@@ -98,6 +136,9 @@ function TodoList(props) {
   }, []);
 
   const onModalCreate = () => dispatch(showModalCreate());
+
+  const processName = ['진행 전', '진행 중', '완료 🙌'];
+
   return (
     <>
       {modal.showEdit &&
@@ -108,38 +149,26 @@ function TodoList(props) {
       {modal.showCreate && <ModalWrite />}
 
       <TodoListProcessTitleBox>
-        <TodoListProcessTitleBoxInner>
-          <TodoListProcessTitle processValue={0}>진행 전</TodoListProcessTitle>
-        </TodoListProcessTitleBoxInner>
-        <TodoListProcessTitleBoxInner>
-          <TodoListProcessTitle processValue={1}>진행 중</TodoListProcessTitle>
-        </TodoListProcessTitleBoxInner>
-        <TodoListProcessTitleBoxInner>
-          <TodoListProcessTitle processValue={2}>완료 🙌</TodoListProcessTitle>
-        </TodoListProcessTitleBoxInner>
+        {processName.map((title, i) => (
+          <TodoListProcessTitleBoxInner>
+            <TodoListProcessTitle processValue={i}>
+              {title}
+            </TodoListProcessTitle>
+          </TodoListProcessTitleBoxInner>
+        ))}
       </TodoListProcessTitleBox>
+
       <TodoListBlock>
-        <TodoListBlockInner>
-          {showListProcess(todoList, 0)}
-          <CreateItem onClick={onModalCreate}>
-            <MdAdd />
-            새로 만들기
-          </CreateItem>
-        </TodoListBlockInner>
-        <TodoListBlockInner>
-          {showListProcess(todoList, 1)}
-          <CreateItem onClick={onModalCreate}>
-            <MdAdd />
-            새로 만들기
-          </CreateItem>
-        </TodoListBlockInner>
-        <TodoListBlockInner>
-          {showListProcess(todoList, 2)}
-          <CreateItem onClick={onModalCreate}>
-            <MdAdd />
-            새로 만들기
-          </CreateItem>
-        </TodoListBlockInner>
+        {processName.map((title, i) => (
+          <TodoListBlockInner>
+            <TodoMediaTitle processValue={i}>{title}</TodoMediaTitle>
+            {showListProcess(todoList, i)}
+            <CreateItem onClick={onModalCreate}>
+              <MdAdd />
+              새로 만들기
+            </CreateItem>
+          </TodoListBlockInner>
+        ))}
       </TodoListBlock>
     </>
   );

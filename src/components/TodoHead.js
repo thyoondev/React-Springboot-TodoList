@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
 import WeatherApi from './WeatherApi';
 import { useSelector } from 'react-redux';
+import DarkMode from './DarkMode';
 
 const TodoHeadBlock = styled.div`
   padding-top: 35px;
@@ -60,11 +61,14 @@ const TodoHeadBlock = styled.div`
     display: inline-block;
     margin-right: 10px;
   }
+  .dark-mode {
+    position: relative;
+    float: right;
+  }
 `;
 
 function TodoHead() {
   const todoList = useSelector((store) => store.todoList);
-
   //done:false의 객체만 undoneTasks에 담아줌
   const undoneTasks = todoList.filter((todo) => todo.process !== 2);
 
@@ -74,12 +78,15 @@ function TodoHead() {
 
   return (
     <TodoHeadBlock>
+      <div className="dark-mode">
+        <DarkMode />
+      </div>
       <h1>{dateString}</h1>
+
       <div className="day">
         {dayName}
         <WeatherApi />
       </div>
-
       <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
     </TodoHeadBlock>
   );

@@ -17,6 +17,11 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: #343a40;
 }
+@media screen and (max-width: 768px) {
+  .Modal {
+    width: 70%;
+  }
+}
 
 .Overlay {
   position: fixed;
