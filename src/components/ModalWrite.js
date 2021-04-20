@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalCreate } from '../store';
+import { closeModalCreate, create } from '../store';
 import './Modal.css';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
@@ -34,15 +34,13 @@ const InfoContent = styled.div`
 function ModalWrite() {
   const dispatch = useDispatch();
   const modalIsOpen = useSelector((store) => store.showModal.showCreate);
-  const todo = useSelector((store) => store.todoList);
-  const id = todo.length + 1;
   const [inputs, setInputs] = useState({
-    id: id,
+    id: '',
     title: '',
     content: '',
     priority: '',
     createdDate: moment().format('YYYYMMDDHHmmss'),
-    process: 0,
+    process: '',
     author: '홍길동',
   });
 
@@ -60,20 +58,42 @@ function ModalWrite() {
    * @param {*} e
    */
   const onWrite = () => {
-    dispatch({
-      type: 'CREATE',
-      payload: {
-        todo: {
-          id: id,
-          title: title,
-          content: content,
-          priority: Number(priority),
-          createdDate: createdDate,
-          process: Number(process),
-          author: author,
-        },
+    // dispatch({
+    //   type: 'CREATE',
+    //   payload: {
+    //     todo: {
+    //       id: id,
+    //       title: title,
+    //       content: content,
+    //       priority: Number(priority),
+    //       createdDate: createdDate,
+    //       process: Number(process),
+    //       author: author,
+    //     },
+    //   },
+    // });
+    fetch('http://localhost:8080/todoList/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
       },
-    });
+      body: JSON.stringify(inputs),
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
+      .then((res) => {
+        // Catch는 여기서 오류가 나야 실행됨.
+        if (res !== null) {
+          dispatch(create(res));
+        } else {
+          alert('등록에 실패하였습니다.');
+        }
+      });
   };
 
   const offModalCreate = () => {
@@ -87,7 +107,6 @@ function ModalWrite() {
 
   return (
     <Modal
-      key={id}
       isOpen={modalIsOpen}
       // onAfterOpen={afterOpenModal}
       onRequestClose={offModalCreate}

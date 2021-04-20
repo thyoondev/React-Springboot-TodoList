@@ -46,7 +46,20 @@ const TodoItemBlock = styled.div`
 function TodoItem(props) {
   const { todo } = props;
   const dispatch = useDispatch();
-  const onRemove = () => dispatch(remove(todo.id));
+  const onRemove = () => {
+    fetch('http://localhost:8080/todoList/' + todo.id, {
+      method: 'DELETE',
+    })
+      .then((res) => res.text())
+      .then((res) => {
+        if (res === 'ok') {
+          dispatch(remove(todo.id));
+        } else {
+          alert('삭제 실패');
+        }
+      });
+  };
+
   //배열 오브젝트의 createdDate와 현재 날짜를 비교해 반환해줌
 
   return (

@@ -1,12 +1,12 @@
 //게시글 리스트을 개별적으로 뿌려주고 정렬을 하는 컴포넌트
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 import TodoItem from './TodoItem';
 import ModalEdit from './ModalEdit';
-import { showModalCreate } from '../store';
+import { getTodoList, showModalCreate } from '../store';
 import ModalWrite from './ModalWrite';
 
 const TodoListBlock = styled.div`
@@ -87,8 +87,16 @@ function TodoList(props) {
         todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
     );
   };
-
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch('http://localhost:8080/todoList/')
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(getTodoList(res));
+      });
+  }, []);
+
   const onModalCreate = () => dispatch(showModalCreate());
   return (
     <>

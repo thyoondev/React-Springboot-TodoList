@@ -64,6 +64,7 @@ const TodoHeadBlock = styled.div`
 
 function TodoHead() {
   const todoList = useSelector((store) => store.todoList);
+
   //done:false의 객체만 undoneTasks에 담아줌
   const undoneTasks = todoList.filter((todo) => todo.process !== 2);
 

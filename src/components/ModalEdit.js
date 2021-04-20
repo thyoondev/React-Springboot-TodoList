@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalEdit } from '../store';
+import { closeModalEdit, update } from '../store';
 import './Modal.css';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
@@ -37,7 +37,15 @@ function DetailPage(props) {
   const modalIsOpen = useSelector((store) => store.showModal.showEdit);
 
   const { todo } = props;
-  const [inputs, setInputs] = useState({ ...todo });
+  const [inputs, setInputs] = useState({
+    id: todo.id,
+    title: todo.title,
+    content: todo.content,
+    priority: todo.priority,
+    createdDate: todo.createdDate,
+    process: todo.process,
+    author: todo.author,
+  });
   const { title, createdDate, process, priority, author, content } = inputs;
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -52,20 +60,43 @@ function DetailPage(props) {
    * @param {*} e
    */
   const onEdit = () => {
-    dispatch({
-      type: 'EDIT',
-      payload: {
-        todo: {
-          id: todo.id,
-          title: title,
-          content: content,
-          priority: Number(priority),
-          createdDate: createdDate,
-          process: Number(process),
-          author: author,
-        },
+    // dispatch({
+    //   type: 'UPDATE',
+    //   payload: {
+    //     todo: {
+    //       id: todo.id,
+    //       title: title,
+    //       content: content,
+    //       priority: Number(priority),
+    //       createdDate: createdDate,
+    //       process: Number(process),
+    //       author: author,
+    //     },
+    //   },
+    // });
+
+    fetch('http://localhost:8080/todoList/' + todo.id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
       },
-    });
+      body: JSON.stringify(inputs), //자바스크립트 오브젝트를 json으로 변경해서 던져주기
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
+      .then((res) => {
+        // Catch는 여기서 오류가 나야 실행됨.
+        if (res !== null) {
+          dispatch(update(res));
+        } else {
+          alert('수정에 실패하였습니다.');
+        }
+      });
   };
 
   const offModal = () => {
