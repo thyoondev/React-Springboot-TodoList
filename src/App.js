@@ -19,7 +19,7 @@ const App = () => {
         <TodoTemplate>
           <TodoHead />
           <TodoList />
-        </TodoTemplate>
+        </TodoTemplate> 
         <div className="wave wave1"></div>
         <div className="wave wave2"></div>
         <div className="wave wave3"></div>
