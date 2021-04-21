@@ -39,10 +39,10 @@ function DetailPage(props) {
     id: todo.id,
     title: todo.title,
     content: todo.content,
+    author: todo.author,
     priority: todo.priority,
     createdDate: todo.createdDate,
     process: todo.process,
-    author: todo.author,
   });
 
   const { title, createdDate, process, priority, author, content } = inputs;
@@ -175,7 +175,7 @@ function DetailPage(props) {
                   name="author"
                   value={author}
                   className="input"
-                  readOnly
+                  onChange={onChange}
                 />
               </div>
             </InfoContent>

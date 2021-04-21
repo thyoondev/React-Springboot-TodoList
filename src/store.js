@@ -42,6 +42,7 @@ const reducer = (state = inistate, action) => {
                 ...todo,
                 title: action.payload.todo.title,
                 content: action.payload.todo.content,
+                author: action.payload.todo.author,
                 priority: action.payload.todo.priority,
                 process: action.payload.todo.process,
               }

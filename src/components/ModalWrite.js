@@ -40,7 +40,7 @@ function ModalWrite() {
     priority: '',
     createdDate: moment().format('YYYYMMDDHHmmss'),
     process: '',
-    author: '홍길동',
+    author: '',
   });
 
   const { title, createdDate, process, priority, author, content } = inputs;
@@ -174,7 +174,8 @@ function ModalWrite() {
                   name="author"
                   value={author}
                   className="input"
-                  readOnly
+                  onChange={onChange}
+                  placeholder="작성자를 입력해 주세요."
                 />
               </div>
             </InfoContent>
