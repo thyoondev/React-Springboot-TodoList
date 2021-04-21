@@ -7,10 +7,8 @@ import './Modal.css';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
 
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
 
-// -----------------------styled-Components start-----------------------
 const ModalBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,11 +27,12 @@ const InfoContent = styled.div`
   flex-direction: column;
   width: 100%;
 `;
-// -----------------------styled-Components end-----------------------
 
 function ModalWrite() {
   const dispatch = useDispatch();
   const modalIsOpen = useSelector((store) => store.showModal.showCreate);
+  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+
   const [inputs, setInputs] = useState({
     id: '',
     title: '',
@@ -45,6 +44,7 @@ function ModalWrite() {
   });
 
   const { title, createdDate, process, priority, author, content } = inputs;
+
   const onChange = (e) => {
     const { name, value } = e.target;
     setInputs({
@@ -53,25 +53,7 @@ function ModalWrite() {
     });
   };
 
-  /**
-   * Form의 submit이 발생하면 app.js의 createItem 호출 후 value state 값 초기화
-   * @param {*} e
-   */
   const onWrite = () => {
-    // dispatch({
-    //   type: 'CREATE',
-    //   payload: {
-    //     todo: {
-    //       id: id,
-    //       title: title,
-    //       content: content,
-    //       priority: Number(priority),
-    //       createdDate: createdDate,
-    //       process: Number(process),
-    //       author: author,
-    //     },
-    //   },
-    // });
     fetch('http://localhost:8080/todoList/', {
       method: 'POST',
       headers: {
@@ -108,11 +90,20 @@ function ModalWrite() {
   return (
     <Modal
       isOpen={modalIsOpen}
-      // onAfterOpen={afterOpenModal}
       onRequestClose={offModalCreate}
       contentLabel="Example Modal"
       className="Modal"
       overlayClassName="Overlay"
+      style={
+        isDarkModeActive && {
+          content: {
+            background: 'rgba(0, 0, 0, 0.85)',
+            transition: 'background 2s',
+            color: '#fff',
+            transition: 'color 2s',
+          },
+        }
+      }
     >
       <form>
         <ModalBox>

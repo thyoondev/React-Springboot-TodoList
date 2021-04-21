@@ -1,15 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 // import { Provider } from "react-redux";
 //import './index.css';
-import App from "./App";
-import reducer from "./store";
+import App from './App';
+import reducer from './store';
 
 const store = createStore(
   reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
 ReactDOM.render(
@@ -18,7 +18,7 @@ ReactDOM.render(
       <App id="root" />
     </React.StrictMode>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

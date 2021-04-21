@@ -1,7 +1,7 @@
 // 오늘의 날짜, 요일, 할 일 개수 보여주는 컴포넌트
 
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
 import WeatherApi from './WeatherApi';
@@ -22,17 +22,35 @@ const TodoHeadBlock = styled.div`
     margin: 0;
     font-size: 38px;
     color: #343a40;
+    ${(props) =>
+      props.isDarkModeActive &&
+      css`
+        color: #fff;
+        transition: color 2s;
+      `}
   }
   .day {
     margin-top: 4px;
     color: #868e96;
     font-size: 21px;
+    ${(props) =>
+      props.isDarkModeActive &&
+      css`
+        color: #fff;
+        transition: color 2s;
+      `}
   }
   .tasks-left {
     color: #20c997;
     font-size: 18px;
     margin-top: 40px;
     font-weight: bold;
+    ${(props) =>
+      props.isDarkModeActive &&
+      css`
+        color: #fdca40;
+        transition: color 2s;
+      `}
   }
   .weather {
     float: right;
@@ -46,6 +64,12 @@ const TodoHeadBlock = styled.div`
     color: #868e96;
     display: inline-block;
     margin-right: 10px;
+    ${(props) =>
+      props.isDarkModeActive &&
+      css`
+        color: #fff;
+        transition: color 2s;
+      `}
   }
   .weatherTempInner {
     margin: 0;
@@ -53,6 +77,12 @@ const TodoHeadBlock = styled.div`
     color: #868e96;
     display: inline-block;
     margin-right: 10px;
+    ${(props) =>
+      props.isDarkModeActive &&
+      css`
+        color: #fff;
+        transition: color 2s;
+      `}
   }
   .weatherDescription {
     margin: 0;
@@ -60,29 +90,40 @@ const TodoHeadBlock = styled.div`
     color: skyblue;
     display: inline-block;
     margin-right: 10px;
+    ${(props) =>
+      props.isDarkModeActive &&
+      css`
+        color: #fdca40;
+        transition: color 2s;
+      `}
   }
   .dark-mode {
     position: relative;
     float: right;
   }
+  ${(props) =>
+    props.isDarkModeActive &&
+    css`
+      background-color: rgba(0, 0, 0, 0.4);
+      transition: background-color 2s;
+      border: none;
+    `}
 `;
 
 function TodoHead() {
+  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
   const todoList = useSelector((store) => store.todoList);
-  //done:false의 객체만 undoneTasks에 담아줌
   const undoneTasks = todoList.filter((todo) => todo.process !== 2);
 
-  //moment.js 사용
   const dateString = moment().format('YYYY년 MM월 DD일');
   const dayName = moment().format('dd요일');
 
   return (
-    <TodoHeadBlock>
+    <TodoHeadBlock isDarkModeActive={isDarkModeActive}>
       <div className="dark-mode">
         <DarkMode />
       </div>
       <h1>{dateString}</h1>
-
       <div className="day">
         {dayName}
         <WeatherApi />

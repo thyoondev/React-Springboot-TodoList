@@ -1,5 +1,3 @@
-//액션
-
 export const getTodoList = (todoList) => ({
   type: 'GETTODOLIST',
   payload: { todoList: todoList },
@@ -19,7 +17,6 @@ export const closeModalEdit = () => ({ type: 'CLOSEMODALEDIT' });
 export const showModalCreate = () => ({ type: 'SHOWMODALCREATE' });
 export const closeModalCreate = () => ({ type: 'CLOSEMODALCREATE' });
 export const toggleDarkMode = () => ({ type: 'TOGGLEDARK' });
-//상태
 
 const inistate = {
   todoList: [],
@@ -27,7 +24,6 @@ const inistate = {
   isDarkModeActive: false,
 };
 
-//액션의 결과를 걸러내는 친구
 const reducer = (state = inistate, action) => {
   switch (action.type) {
     case 'GETTODOLIST':
@@ -35,16 +31,8 @@ const reducer = (state = inistate, action) => {
         ...state,
         todoList: state.todoList.concat(action.payload.todoList),
       };
-    /**
-     * 게시글 글 작성
-     * concat함수를 이용해 배열 오브젝트의 마지막에 파라미터로 받은 객체를 추가해준다.
-     */
     case 'CREATE':
       return { ...state, todoList: state.todoList.concat(action.payload.todo) };
-    /**
-     * 게시글 글 수정
-     *
-     */
     case 'UPDATE':
       return {
         ...state,
@@ -60,32 +48,6 @@ const reducer = (state = inistate, action) => {
             : todo,
         ),
       };
-
-    /**
-     * 게시글 프로세스 상태 변경
-     *
-     *
-     */
-    case 'TOGGLEPROCESS': //action(paload :{todo.value})
-      //   return state.todoList.map((todo) =>
-      //     todo.id === action.payload.id
-      //       ? { ...todo, process: action.payload.value }
-      //       : todo
-      //   );
-      return {
-        ...state,
-        todoList: state.todoList.map((todo) =>
-          todo.id === action.payload.id
-            ? { ...todo, process: action.payload.value }
-            : todo,
-        ),
-      };
-    /**
-     * 게시글 삭제
-     * filter함수로 받은 id값과 같지 않은 것만 반환해준다.
-     * //bool을 return 받는다. -> true만 걸러낸다.
-     * @param {*} id
-     */
     case 'REMOVE':
       return {
         ...state,

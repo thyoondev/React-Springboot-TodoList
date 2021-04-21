@@ -23,8 +23,8 @@ const TodoListBlock = styled.div`
 `;
 const TodoListBlockInner = styled.div`
   flex: 1;
-  padding: 20px 32px;
-  padding-bottom: 48px;
+  padding: 0px 32px 48px 32px;
+  margin-top: 0px;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -35,8 +35,6 @@ const TodoListBlockInner = styled.div`
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    padding-top: 0px;
-
   }
 `;
 const TodoListProcessTitleBox = styled.div`
@@ -69,6 +67,12 @@ const TodoListProcessTitle = styled.div`
   padding: 0px 5px;
   margin: 10px 0px 10px 32px;
   color: #495057;
+  ${(props) =>
+    props.isDarkModeActive &&
+    css`
+      background-color: #fdca40;
+      transition: background-color 2s;
+    `}
 `;
 
 const CreateItem = styled.div`
@@ -102,21 +106,47 @@ const TodoMediaTitle = styled.div`
           background-color: #cdeac0;
         `}
   border-radius: 5px;
-  text-align: center;
+  justify-content: center;
+  align-items: center;
   margin: 0px 0px 5px 0px;
-  padding: 0px 5px;
+  padding: 0px 0px;
   color: #495057;
+  position: fixed;
+  ${(props) =>
+    props.isDarkModeActive &&
+    css`
+      background-color: #fdca40;
+      transition: background-color 2s;
+    `}
   @media screen and (max-width: 768px) {
     display: flex;
   }
 `;
+const BlankBox = styled.div`
+  display: none;
+  min-height: 30px;
+  width: 100%;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+`;
+const CreateItemTitle = styled.span`
+  color: #495057;
+  ${(props) =>
+    props.isDarkModeActive &&
+    css`
+      color: #fff;
+      transition: color 2s;
+    `}
+`;
 
 function TodoList(props) {
   const todoList = useSelector((store) => store.todoList);
-  const modal = useSelector((store) => store.showModal);
-  //ADD pin function and array sort
   todoList.sort((a, b) => a.id - b.id);
   todoList.sort((a, b) => a.priority - b.priority);
+  const modal = useSelector((store) => store.showModal);
+  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+  const processName = ['진행 전', '진행 중', '완료 🙌'];
 
   //프로세스 상태에 따라 출력
   const showListProcess = (todoList, processValue) => {
@@ -125,8 +155,8 @@ function TodoList(props) {
         todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
     );
   };
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   useEffect(() => {
     fetch('http://localhost:8080/todoList/')
       .then((res) => res.json())
@@ -136,8 +166,6 @@ function TodoList(props) {
   }, []);
 
   const onModalCreate = () => dispatch(showModalCreate());
-
-  const processName = ['진행 전', '진행 중', '완료 🙌'];
 
   return (
     <>
@@ -151,7 +179,10 @@ function TodoList(props) {
       <TodoListProcessTitleBox>
         {processName.map((title, i) => (
           <TodoListProcessTitleBoxInner>
-            <TodoListProcessTitle processValue={i}>
+            <TodoListProcessTitle
+              processValue={i}
+              isDarkModeActive={isDarkModeActive}
+            >
               {title}
             </TodoListProcessTitle>
           </TodoListProcessTitleBoxInner>
@@ -160,12 +191,20 @@ function TodoList(props) {
 
       <TodoListBlock>
         {processName.map((title, i) => (
-          <TodoListBlockInner>
-            <TodoMediaTitle processValue={i}>{title}</TodoMediaTitle>
+          <TodoListBlockInner isDarkModeActive={isDarkModeActive}>
+            <TodoMediaTitle
+              processValue={i}
+              isDarkModeActive={isDarkModeActive}
+            >
+              {title}
+            </TodoMediaTitle>
+            <BlankBox />
             {showListProcess(todoList, i)}
             <CreateItem onClick={onModalCreate}>
-              <MdAdd />
-              새로 만들기
+              <CreateItemTitle isDarkModeActive={isDarkModeActive}>
+                <MdAdd />
+                새로 만들기
+              </CreateItemTitle>
             </CreateItem>
           </TodoListBlockInner>
         ))}

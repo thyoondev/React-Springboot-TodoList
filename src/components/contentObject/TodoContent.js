@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { showModalEdit } from '../../store';
 import './Item.css';
@@ -9,11 +9,12 @@ const Text = styled.div`
   font-size: 15px;
   color: #495057;
   word-break: keep-all;
-  /* ${(props) =>
-    props.process === 2 &&
+  ${(props) =>
+    props.isDarkModeActive &&
     css`
-      color: #ced4da;
-    `} */
+      color: #fff;
+      transition: color 2s;
+    `}
 `;
 const ViewText = styled.div`
   white-space: pre-wrap; //공백을 코드에 있는 그대로 표시함, 코드에 줄바꿈이 없어도 자동 줄바꿈이 됨
@@ -92,10 +93,11 @@ const TodoContent = (props) => {
   };
   const dispatch = useDispatch();
   const onModalEdit = () => dispatch(showModalEdit(todo.id));
+  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
   return (
     <>
       <ContentBox onClick={onModalEdit}>
-        <Text process={todo.process}>
+        <Text process={todo.process} isDarkModeActive={isDarkModeActive}>
           <ViewText dangerouslySetInnerHTML={{ __html: getText() }} />
         </Text>
         <Priority priority={todo.priority}>

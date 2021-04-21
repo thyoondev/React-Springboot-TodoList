@@ -3,7 +3,6 @@ import TodoTemplate from './components/TodoTemplate';
 import TodoHead from './components/TodoHead';
 import TodoList from './components/TodoList';
 import './background.css';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 const App = () => {
@@ -13,8 +12,8 @@ const App = () => {
       <section
         style={
           isDarkModeActive
-            ? { background: '#424642' }
-            : { background: '#aeddef' }
+            ? { background: '#424642', transition: 'background 2s' }
+            : { background: '#aeddef', transition: 'background 2s' }
         }
       >
         <TodoTemplate>
