@@ -8,7 +8,6 @@
 //import javax.persistence.GenerationType;
 //import javax.persistence.Id;
 //
-//import org.hibernate.annotations.CreationTimestamp;
 //
 //import lombok.AllArgsConstructor;
 //import lombok.Builder;
@@ -36,6 +35,6 @@
 //	@Column(nullable = false, length = 50)
 //	private String email;
 //	
-//	@CreationTimestamp //시간이 자동 입력
+////	@CreationTimestamp //시간이 자동 입력
 //	private Timestamp createDate;
 //}

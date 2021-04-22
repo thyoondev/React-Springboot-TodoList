@@ -65,7 +65,7 @@ const Author = styled.div`
   font-size: 10px;
   padding: 2px 10px;
   background-color: #e5e5e5;
-  max-width: 30px;
+  width: fit-content;
   border-radius: 3px;
   color: #495057;
 `;

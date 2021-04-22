@@ -30,8 +30,8 @@
 //			.anyRequest()
 //			.authenticated()
 //		.and()
-//			.formLogin();
-////			.loginPage("/auth/loginForm");
+//			.formLogin()
+//			.loginPage("/auth/loginForm");
 //		
 //	}
 //

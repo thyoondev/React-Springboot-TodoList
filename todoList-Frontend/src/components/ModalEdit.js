@@ -176,6 +176,7 @@ function DetailPage(props) {
                   value={author}
                   className="input"
                   onChange={onChange}
+                  placeholder="작성자를 입력해 주세요."
                 />
               </div>
             </InfoContent>

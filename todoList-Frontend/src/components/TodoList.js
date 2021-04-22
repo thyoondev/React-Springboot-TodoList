@@ -141,9 +141,34 @@ const CreateItemTitle = styled.span`
 `;
 
 function TodoList(props) {
+  const sortTodoList = (value) => {
+    switch (value) {
+      case 'priority':
+        todoList.sort((a, b) => a.priority - b.priority);
+        break;
+      case 'id':
+        todoList.sort((a, b) => a.id - b.id);
+        break;
+      default:
+        break;
+    }
+  };
+
   const todoList = useSelector((store) => store.todoList);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    fetch('http://localhost:8080/todoList/')
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(getTodoList(res));
+        //sortTodoList('priority');
+      });
+  }, []);
+
   todoList.sort((a, b) => a.id - b.id);
   todoList.sort((a, b) => a.priority - b.priority);
+
   const modal = useSelector((store) => store.showModal);
   const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
   const processName = ['진행 전', '진행 중', '완료 🙌'];
@@ -155,15 +180,6 @@ function TodoList(props) {
         todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
     );
   };
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    fetch('http://localhost:8080/todoList/')
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch(getTodoList(res));
-      });
-  }, []);
 
   const onModalCreate = () => dispatch(showModalCreate());
 
