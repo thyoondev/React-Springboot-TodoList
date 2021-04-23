@@ -6,7 +6,8 @@ import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
 import WeatherApi from './WeatherApi';
 import { useSelector } from 'react-redux';
-import DarkMode from '../../theme/DarkMode';
+import DarkMode from '../../style/DarkMode';
+import { inistateTypes, todoTypes } from '../../common/types/types';
 
 const TodoHeadBlock = styled.div<any>`
   padding-top: 35px;
@@ -111,9 +112,11 @@ const TodoHeadBlock = styled.div<any>`
 `;
 
 function TodoHead() {
-  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
-  const todoList = useSelector((store: any) => store.todoList);
-  const undoneTasks = todoList.filter((todo: any) => todo.process !== 2);
+  const isDarkModeActive = useSelector(
+    (store: inistateTypes) => store.isDarkModeActive,
+  );
+  const todoList = useSelector((store: inistateTypes) => store.todoList);
+  const undoneTasks = todoList.filter((todo: todoTypes) => todo.process !== 2);
 
   const dateString = moment().format('YYYY년 MM월 DD일');
   const dayName = moment().format('dd요일');

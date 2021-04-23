@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalCreate, create } from '../../redux/store';
+import { closeModalCreate, create } from '../../store/Action';
 import './Modal.css';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
+import { restApiEnum } from '../../common/enum/Enum';
+import { RESTAPIURL } from '../../common/restTApiUrl';
 
 Modal.setAppElement('#root');
 
@@ -54,8 +56,8 @@ function ModalWrite() {
   };
 
   const onWrite = () => {
-    fetch('http://localhost:8080/todoList/', {
-      method: 'POST',
+    fetch(RESTAPIURL, {
+      method: restApiEnum.POST,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },

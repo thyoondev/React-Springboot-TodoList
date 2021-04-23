@@ -3,9 +3,12 @@
 import styled, { css } from 'styled-components';
 import { MdDelete } from 'react-icons/md';
 import 'moment/locale/ko';
-import { remove } from '../../redux/store';
+import { remove } from '../../store/Action';
 import TodoContent from './TodoContent';
 import { useDispatch, useSelector } from 'react-redux';
+import { inistateTypes, todoTypes } from '../../common/types/types';
+import { restApiEnum } from '../../common/enum/Enum';
+import { RESTAPIURL } from '../../common/restTApiUrl';
 
 const Remove = styled.div`
   display: flex;
@@ -55,12 +58,14 @@ const TodoItemBlock = styled.div<any>`
 `;
 
 function TodoItem(props: any) {
-  const { todo } = props;
-  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
+  const todo: todoTypes = props.todo;
+  const isDarkModeActive = useSelector(
+    (store: inistateTypes) => store.isDarkModeActive,
+  );
   const dispatch = useDispatch();
   const onRemove = () => {
-    fetch('http://localhost:8080/todoList/' + todo.id, {
-      method: 'DELETE',
+    fetch(RESTAPIURL + todo.id, {
+      method: restApiEnum.DELETE,
     })
       .then((res) => res.text())
       .then((res) => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import TodoTemplate from '../components/TodoTemplate';
-import TodoHead from '../components/todoHead/TodoHead';
-import TodoList from '../components/todoList/TodoList';
+import TodoTemplate from './components/TodoTemplate';
+import TodoHead from './components/todoHead/TodoHead';
+import TodoList from './components/todoList/TodoList';
 import './App.css';
 import { useSelector } from 'react-redux';
 

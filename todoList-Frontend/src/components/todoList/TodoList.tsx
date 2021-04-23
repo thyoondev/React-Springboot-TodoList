@@ -6,8 +6,10 @@ import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 import TodoItem from './TodoItem';
 import ModalUpdate from '../modal/ModalUpdate';
-import { getTodoList, showModalCreate } from '../../redux/store';
+import { getTodoList, showModalCreate } from '../../store/Action';
 import ModalCreate from '../modal/ModalCreate';
+import { inistateTypes, todoTypes } from '../../common/types/types';
+import { RESTAPIURL } from '../../common/restTApiUrl';
 
 const TodoListBlock = styled.div`
   display: flex;
@@ -140,25 +142,12 @@ const CreateItemTitle = styled.span<any>`
     `}
 `;
 
-function TodoList(props: any) {
-  const sortTodoList = (value: any) => {
-    switch (value) {
-      case 'priority':
-        todoList.sort((a: any, b: any) => a.priority - b.priority);
-        break;
-      case 'id':
-        todoList.sort((a: any, b: any) => a.id - b.id);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const todoList = useSelector((store: any) => store.todoList);
+function TodoList() {
+  const todoList = useSelector((store: inistateTypes) => store.todoList);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch('http://localhost:8080/todoList/')
+    fetch(RESTAPIURL)
       .then((res) => res.json())
       .then((res) => {
         dispatch(getTodoList(res));
@@ -166,17 +155,19 @@ function TodoList(props: any) {
       });
   }, []);
 
-  todoList.sort((a: any, b: any) => a.id - b.id);
-  todoList.sort((a: any, b: any) => a.priority - b.priority);
+  todoList.sort((a: todoTypes, b: todoTypes) => a.id - b.id);
+  todoList.sort((a: todoTypes, b: todoTypes) => a.priority - b.priority);
 
-  const modal = useSelector((store: any) => store.showModal);
-  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
-  const processName = ['진행 전', '진행 중', '완료 🙌'];
+  const modal = useSelector((store: inistateTypes) => store.showModal);
+  const isDarkModeActive = useSelector(
+    (store: inistateTypes) => store.isDarkModeActive,
+  );
+  const processName: string[] = ['진행 전', '진행 중', '완료 🙌'];
 
   //프로세스 상태에 따라 출력
-  const showListProcess = (todoList: any, processValue: any) => {
+  const showListProcess = (todoList: todoTypes[], processValue: number) => {
     return todoList.map(
-      (todo: any) =>
+      (todo: todoTypes) =>
         todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
     );
   };
@@ -187,7 +178,7 @@ function TodoList(props: any) {
     <>
       {modal.showEdit &&
         todoList.map(
-          (todo: any) =>
+          (todo: todoTypes) =>
             todo.id === modal.id && <ModalUpdate key={todo.id} todo={todo} />,
         )}
       {modal.showCreate && <ModalCreate />}

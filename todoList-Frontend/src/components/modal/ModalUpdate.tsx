@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalEdit, update } from '../../redux/store';
+import { closeModalEdit, update } from '../../store/Action';
 import './Modal.css';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
+import { restApiEnum } from '../../common/enum/Enum';
+import { RESTAPIURL } from '../../common/restTApiUrl';
 
 Modal.setAppElement('#root');
 
@@ -56,8 +58,8 @@ function DetailPage(props: any) {
   };
 
   const onEdit = () => {
-    fetch('http://localhost:8080/todoList/' + todo.id, {
-      method: 'PUT',
+    fetch(RESTAPIURL + todo.id, {
+      method: restApiEnum.PUT,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
       },
