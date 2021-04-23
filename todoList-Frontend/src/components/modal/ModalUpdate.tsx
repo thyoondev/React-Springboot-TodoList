@@ -28,11 +28,11 @@ const InfoContent = styled.div`
   width: 100%;
 `;
 
-function DetailPage(props) {
+function DetailPage(props: any) {
   const dispatch = useDispatch();
 
-  const modalIsOpen = useSelector((store) => store.showModal.showEdit);
-  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+  const modalIsOpen = useSelector((store: any) => store.showModal.showEdit);
+  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
 
   const { todo } = props;
   const [inputs, setInputs] = useState({
@@ -47,7 +47,7 @@ function DetailPage(props) {
 
   const { title, createdDate, process, priority, author, content } = inputs;
 
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
@@ -100,9 +100,8 @@ function DetailPage(props) {
         isDarkModeActive && {
           content: {
             background: 'rgba(0, 0, 0, 0.85)',
-            transition: 'background 2s',
+            transition: 'background color 2s',
             color: '#fff',
-            transition: 'color 2s',
           },
         }
       }
@@ -183,7 +182,6 @@ function DetailPage(props) {
           </InfoBox>
           <div>
             <textarea
-              type="text"
               value={content}
               className="content"
               name="content"

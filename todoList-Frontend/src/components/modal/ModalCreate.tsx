@@ -30,8 +30,8 @@ const InfoContent = styled.div`
 
 function ModalWrite() {
   const dispatch = useDispatch();
-  const modalIsOpen = useSelector((store) => store.showModal.showCreate);
-  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+  const modalIsOpen = useSelector((store: any) => store.showModal.showCreate);
+  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
 
   const [inputs, setInputs] = useState({
     id: '',
@@ -45,7 +45,7 @@ function ModalWrite() {
 
   const { title, createdDate, process, priority, author, content } = inputs;
 
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
@@ -98,9 +98,8 @@ function ModalWrite() {
         isDarkModeActive && {
           content: {
             background: 'rgba(0, 0, 0, 0.85)',
-            transition: 'background 2s',
+            transition: 'background color 2s',
             color: '#fff',
-            transition: 'color 2s',
           },
         }
       }
@@ -182,7 +181,6 @@ function ModalWrite() {
           </InfoBox>
           <div>
             <textarea
-              type="text"
               value={content}
               className="content"
               name="content"
@@ -192,7 +190,6 @@ function ModalWrite() {
           </div>
         </ModalBox>
       </form>
-      {/* <button onClick={onReset}>초기화</button> */}
     </Modal>
   );
 }

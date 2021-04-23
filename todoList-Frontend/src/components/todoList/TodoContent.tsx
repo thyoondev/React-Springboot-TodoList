@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { showModalEdit } from '../../redux/store';
 import './TodoContent.css';
 
-const Text = styled.div`
+const Text = styled.div<any>`
   flex: 1;
   font-size: 15px;
   color: #495057;
@@ -26,7 +26,7 @@ const ContentBox = styled.div`
   width: 100%;
   cursor: pointer;
 `;
-const Priority = styled.div`
+const Priority = styled.div<any>`
   font-size: 10px;
   padding: 2px 3px;
   background-color: #fab1a0;
@@ -69,7 +69,7 @@ const Author = styled.div`
   border-radius: 3px;
   color: #495057;
 `;
-const TodoContent = (props) => {
+const TodoContent = (props: any) => {
   const { todo } = props;
   //웹 링크 처리
   let rawString = todo.title;
@@ -93,7 +93,7 @@ const TodoContent = (props) => {
   };
   const dispatch = useDispatch();
   const onModalEdit = () => dispatch(showModalEdit(todo.id));
-  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
   return (
     <>
       <ContentBox onClick={onModalEdit}>

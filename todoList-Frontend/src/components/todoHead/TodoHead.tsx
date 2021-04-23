@@ -8,7 +8,7 @@ import WeatherApi from './WeatherApi';
 import { useSelector } from 'react-redux';
 import DarkMode from '../../theme/DarkMode';
 
-const TodoHeadBlock = styled.div`
+const TodoHeadBlock = styled.div<any>`
   padding-top: 35px;
   padding-left: 32px;
   padding-right: 32px;
@@ -111,9 +111,9 @@ const TodoHeadBlock = styled.div`
 `;
 
 function TodoHead() {
-  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
-  const todoList = useSelector((store) => store.todoList);
-  const undoneTasks = todoList.filter((todo) => todo.process !== 2);
+  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
+  const todoList = useSelector((store: any) => store.todoList);
+  const undoneTasks = todoList.filter((todo: any) => todo.process !== 2);
 
   const dateString = moment().format('YYYY년 MM월 DD일');
   const dayName = moment().format('dd요일');

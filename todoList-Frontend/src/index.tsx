@@ -9,13 +9,14 @@ import reducer from './redux/store';
 
 const store = createStore(
   reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App id="root" />
+      <App />
     </React.StrictMode>
   </Provider>,
   document.getElementById('root'),

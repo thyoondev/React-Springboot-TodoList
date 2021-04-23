@@ -1,28 +1,34 @@
+//타입 지정
 const types = {
-  GETTODOLIST: 'GETTODOLIST',
-  CREATE: 'CREATE',
-  UPDATE: 'UPDATE',
-  REMOVE: 'REMOVE',
-  SHOWMODALEDIT: 'SHOWMODALEDIT',
-  CLOSEMODALEDIT: 'CLOSEMODALEDIT',
-  SHOWMODALCREATE: 'SHOWMODALCREATE',
-  CLOSEMODALCREATE: 'CLOSEMODALCREATE',
-  TOGGLEDARK: 'TOGGLEDARK',
+  GETTODOLIST: 'GETTODOLIST' as const,
+  CREATE: 'CREATE' as const,
+  UPDATE: 'UPDATE' as const,
+  REMOVE: 'REMOVE' as const,
+  SHOWMODALEDIT: 'SHOWMODALEDIT' as const,
+  CLOSEMODALEDIT: 'CLOSEMODALEDIT' as const,
+  SHOWMODALCREATE: 'SHOWMODALCREATE' as const,
+  CLOSEMODALCREATE: 'CLOSEMODALCREATE' as const,
+  TOGGLEDARK: 'TOGGLEDARK' as const,
 };
-export const getTodoList = (todoList) => ({
+
+//액션
+export const getTodoList = (todoList: object) => ({
   type: types.GETTODOLIST,
   payload: { todoList: todoList },
 });
-export const create = (todo) => ({
+export const create = (todo: object) => ({
   type: types.CREATE,
   payload: { todo: todo },
 });
-export const update = (todo) => ({
+export const update = (todo: object) => ({
   type: types.UPDATE,
   payload: { todo: todo },
 });
-export const remove = (id) => ({ type: types.REMOVE, payload: { id: id } });
-export const showModalEdit = (id) => ({
+export const remove = (id: number) => ({
+  type: types.REMOVE,
+  payload: { id: id },
+});
+export const showModalEdit = (id: number) => ({
   type: types.SHOWMODALEDIT,
   payload: { id: id },
 });
@@ -31,13 +37,15 @@ export const showModalCreate = () => ({ type: types.SHOWMODALCREATE });
 export const closeModalCreate = () => ({ type: types.CLOSEMODALCREATE });
 export const toggleDarkMode = () => ({ type: types.TOGGLEDARK });
 
+//초기 상태 값
 const inistate = {
   todoList: [],
   showModal: { showEdit: false, id: -1, showCreate: false },
   isDarkModeActive: false,
 };
 
-const reducer = (state = inistate, action) => {
+//리듀서
+const reducer = (state = inistate, action: any) => {
   switch (action.type) {
     case types.GETTODOLIST:
       return {
@@ -49,7 +57,7 @@ const reducer = (state = inistate, action) => {
     case types.UPDATE:
       return {
         ...state,
-        todoList: state.todoList.map((todo) =>
+        todoList: state.todoList.map((todo: any) =>
           todo.id === action.payload.todo.id
             ? {
                 ...todo,
@@ -66,7 +74,7 @@ const reducer = (state = inistate, action) => {
       return {
         ...state,
         todoList: state.todoList.filter(
-          (todo) => todo.id !== action.payload.id,
+          (todo: any) => todo.id !== action.payload.id,
         ),
       };
     case types.SHOWMODALEDIT:

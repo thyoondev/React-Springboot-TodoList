@@ -4,7 +4,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
-const TodoTemplateBlock = styled.div`
+const TodoTemplateBlock = styled.div<any>`
   width: 1024px;
   height: 768px;
   position: relative; /* 추후 박스 하단에 추가 버튼을 위치시키기 위한 설정 */
@@ -38,8 +38,8 @@ const TodoTemplateBlock = styled.div`
   }
 `;
 
-function TodoTemplate(props) {
-  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+function TodoTemplate(props: any) {
+  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
   const { children } = props;
   return (
     <TodoTemplateBlock isDarkModeActive={isDarkModeActive}>

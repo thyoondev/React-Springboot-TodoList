@@ -21,7 +21,7 @@ const TodoListBlock = styled.div`
     flex-direction: column;
   }
 `;
-const TodoListBlockInner = styled.div`
+const TodoListBlockInner = styled.div<any>`
   flex: 1;
   padding: 0px 32px 48px 32px;
   margin-top: 0px;
@@ -48,7 +48,7 @@ const TodoListProcessTitleBox = styled.div`
 const TodoListProcessTitleBoxInner = styled.div`
   flex: 1;
 `;
-const TodoListProcessTitle = styled.div`
+const TodoListProcessTitle = styled.div<any>`
   max-width: 70px;
   ${(props) =>
     props.processValue === 0
@@ -89,7 +89,7 @@ const CreateItem = styled.div`
   }
 `;
 
-const TodoMediaTitle = styled.div`
+const TodoMediaTitle = styled.div<any>`
   display: none;
   min-width: 480px;
   height: 30px;
@@ -130,7 +130,7 @@ const BlankBox = styled.div`
     display: block;
   }
 `;
-const CreateItemTitle = styled.span`
+const CreateItemTitle = styled.span<any>`
   color: #495057;
   ${(props) =>
     props.isDarkModeActive &&
@@ -140,21 +140,21 @@ const CreateItemTitle = styled.span`
     `}
 `;
 
-function TodoList(props) {
-  const sortTodoList = (value) => {
+function TodoList(props: any) {
+  const sortTodoList = (value: any) => {
     switch (value) {
       case 'priority':
-        todoList.sort((a, b) => a.priority - b.priority);
+        todoList.sort((a: any, b: any) => a.priority - b.priority);
         break;
       case 'id':
-        todoList.sort((a, b) => a.id - b.id);
+        todoList.sort((a: any, b: any) => a.id - b.id);
         break;
       default:
         break;
     }
   };
 
-  const todoList = useSelector((store) => store.todoList);
+  const todoList = useSelector((store: any) => store.todoList);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -166,17 +166,17 @@ function TodoList(props) {
       });
   }, []);
 
-  todoList.sort((a, b) => a.id - b.id);
-  todoList.sort((a, b) => a.priority - b.priority);
+  todoList.sort((a: any, b: any) => a.id - b.id);
+  todoList.sort((a: any, b: any) => a.priority - b.priority);
 
-  const modal = useSelector((store) => store.showModal);
-  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+  const modal = useSelector((store: any) => store.showModal);
+  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
   const processName = ['진행 전', '진행 중', '완료 🙌'];
 
   //프로세스 상태에 따라 출력
-  const showListProcess = (todoList, processValue) => {
+  const showListProcess = (todoList: any, processValue: any) => {
     return todoList.map(
-      (todo) =>
+      (todo: any) =>
         todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
     );
   };
@@ -187,7 +187,7 @@ function TodoList(props) {
     <>
       {modal.showEdit &&
         todoList.map(
-          (todo) =>
+          (todo: any) =>
             todo.id === modal.id && <ModalUpdate key={todo.id} todo={todo} />,
         )}
       {modal.showCreate && <ModalCreate />}

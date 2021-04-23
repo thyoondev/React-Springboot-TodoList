@@ -6,7 +6,9 @@ import './App.css';
 import { useSelector } from 'react-redux';
 
 const App = () => {
-  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+  const isDarkModeActive: boolean = useSelector(
+    (store: any) => store.isDarkModeActive,
+  );
   return (
     <>
       <section

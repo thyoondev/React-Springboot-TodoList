@@ -20,7 +20,7 @@ const Remove = styled.div`
   display: none;
 `;
 
-const TodoItemBlock = styled.div`
+const TodoItemBlock = styled.div<any>`
   display: flex;
   align-items: center;
   padding: 15px;
@@ -54,9 +54,9 @@ const TodoItemBlock = styled.div`
   }
 `;
 
-function TodoItem(props) {
+function TodoItem(props: any) {
   const { todo } = props;
-  const isDarkModeActive = useSelector((store) => store.isDarkModeActive);
+  const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
   const dispatch = useDispatch();
   const onRemove = () => {
     fetch('http://localhost:8080/todoList/' + todo.id, {
