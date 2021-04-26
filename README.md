@@ -9,7 +9,7 @@
 | ![메인화면](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/TodoList/1.PNG) | ![모달창 보임](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/TodoList/2.PNG) |
 
 - RWD, DarkMode
-- Frontend(React.js + Redux + TypeScript), Backend(스프링부트 + JPA + MySql + lombok)
+- Frontend(React.js + Redux + TypeScript), Backend(SpringBoot + JPA + MySql + lombok)
 - REST API
 - OpenWeatherAPI
 
