@@ -19,11 +19,11 @@ export const remove = (id: number) => ({
   type: typesEnum.REMOVE,
   payload: { id: id },
 });
-export const showModalEdit = (id: number) => ({
-  type: typesEnum.SHOWMODALEDIT,
+export const showModalUpdate = (id: number) => ({
+  type: typesEnum.SHOWMODALUPDATE,
   payload: { id: id },
 });
-export const closeModalEdit = () => ({ type: typesEnum.CLOSEMODALEDIT });
+export const closeModalUpdate = () => ({ type: typesEnum.CLOSEMODALUPDATE });
 export const showModalCreate = () => ({ type: typesEnum.SHOWMODALCREATE });
 export const closeModalCreate = () => ({ type: typesEnum.CLOSEMODALCREATE });
 export const toggleDarkMode = () => ({ type: typesEnum.TOGGLEDARK });

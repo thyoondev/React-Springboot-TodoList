@@ -41,7 +41,7 @@ const reducer: any = (state: inistateTypes = inistate, action: action) => {
           (todo: todoTypes) => todo.id !== action.payload.id,
         ),
       };
-    case typesEnum.SHOWMODALEDIT:
+    case typesEnum.SHOWMODALUPDATE:
       return {
         ...state,
         showModal: {
@@ -50,7 +50,7 @@ const reducer: any = (state: inistateTypes = inistate, action: action) => {
           id: action.payload.id,
         },
       };
-    case typesEnum.CLOSEMODALEDIT:
+    case typesEnum.CLOSEMODALUPDATE:
       return {
         ...state,
         showModal: { ...state.showModal, showEdit: false, id: -1 },

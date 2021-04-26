@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { showModalEdit } from '../../store/Action';
+import { showModalUpdate } from '../../store/Action';
 import './TodoContent.css';
 
 const Text = styled.div<any>`
@@ -92,7 +92,7 @@ const TodoContent = (props: any) => {
     }
   };
   const dispatch = useDispatch();
-  const onModalEdit = () => dispatch(showModalEdit(todo.id));
+  const onModalEdit = () => dispatch(showModalUpdate(todo.id));
   const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
   return (
     <>

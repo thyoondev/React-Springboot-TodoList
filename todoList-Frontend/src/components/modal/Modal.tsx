@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalUpdate, update } from '../../store/Action';
+import {
+  closeModalCreate,
+  closeModalUpdate,
+  create,
+  update,
+} from '../../store/Action';
 import './Modal.css';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
-import { restApiEnum } from '../../common/enum/Enum';
+import { restApiEnum, typesEnum } from '../../common/enum/Enum';
 import { RESTAPIURL } from '../../common/restTApiUrl';
-import ItemContent from './ItemContent';
-import ItemTitle from './ItemTitle';
-import InfoContent from './InfoContent';
 import InfoTitle from './InfoTitle';
+import InfoContent from './InfoContent';
+import ItemTitle from './ItemTitle';
+import ItemContent from './ItemContent';
 
 Modal.setAppElement('#root');
 
@@ -24,22 +29,35 @@ const InfoBox = styled.div`
   flex-direction: row;
 `;
 
-function DetailPage(props: any) {
+function ModalForm(props: any) {
   const dispatch = useDispatch();
-
-  const modalIsOpen = useSelector((store: any) => store.showModal.showEdit);
+  const modalIsOpen = useSelector((store: any) => store.showModal.showCreate);
   const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
+  const { modalType } = props;
 
-  const { todo } = props;
   const [inputs, setInputs] = useState({
-    id: todo.id,
-    title: todo.title,
-    content: todo.content,
-    author: todo.author,
-    priority: todo.priority,
-    createdDate: todo.createdDate,
-    process: todo.process,
+    id: '',
+    title: '',
+    content: '',
+    priority: '',
+    createdDate: moment().format('YYYYMMDDHHmmss'),
+    process: '',
+    author: '',
   });
+  const [key, setKey] = useState(0);
+  if (modalType === typesEnum.UPDATE) {
+    const { todo } = props;
+    setInputs({
+      id: todo.id,
+      title: todo.title,
+      content: todo.content,
+      author: todo.author,
+      priority: todo.priority,
+      createdDate: todo.createdDate,
+      process: todo.process,
+    });
+    setKey(todo.id);
+  }
 
   const { title, createdDate, process, priority, author, content } = inputs;
 
@@ -51,8 +69,33 @@ function DetailPage(props: any) {
     });
   };
 
+  const onWrite = () => {
+    fetch(RESTAPIURL, {
+      method: restApiEnum.POST,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(inputs),
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
+      .then((res) => {
+        // Catch는 여기서 오류가 나야 실행됨.
+        if (res !== null) {
+          dispatch(create(res));
+        } else {
+          alert('등록에 실패하였습니다.');
+        }
+      });
+  };
+
   const onUpdate = () => {
-    fetch(RESTAPIURL + todo.id, {
+    fetch(RESTAPIURL + inputs.id, {
       method: restApiEnum.PUT,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -76,7 +119,13 @@ function DetailPage(props: any) {
   };
 
   const offModal = () => {
-    title !== '' && onUpdate();
+    if (title !== '') {
+      if (modalType === typesEnum.UPDATE) {
+        onUpdate();
+      } else if (modalType === typesEnum.CREATE) {
+        onWrite();
+      }
+    }
     dispatch(closeModalUpdate());
   };
 
@@ -86,21 +135,21 @@ function DetailPage(props: any) {
 
   return (
     <Modal
-      key={todo.id}
+      key={key}
       isOpen={modalIsOpen}
       onRequestClose={offModal}
       contentLabel="Example Modal"
       className="Modal"
       overlayClassName="Overlay"
-      style={
-        isDarkModeActive && {
-          content: {
-            background: 'rgba(0, 0, 0, 0.85)',
-            transition: 'background color 2s',
-            color: '#fff',
-          },
-        }
-      }
+      // style={
+      //   isDarkModeActive && {
+      //     content: {
+      //       background: 'rgba(0, 0, 0, 0.85)',
+      //       transition: 'background color 2s',
+      //       color: '#fff',
+      //     },
+      //   }
+      // }
     >
       <form>
         <ModalBox>
@@ -125,4 +174,4 @@ function DetailPage(props: any) {
   );
 }
 
-export default DetailPage;
+export default ModalForm;

@@ -8,6 +8,10 @@ import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
 import { restApiEnum } from '../../common/enum/Enum';
 import { RESTAPIURL } from '../../common/restTApiUrl';
+import InfoTitle from './InfoTitle';
+import InfoContent from './InfoContent';
+import ItemTitle from './ItemTitle';
+import ItemContent from './ItemContent';
 
 Modal.setAppElement('#root');
 
@@ -18,16 +22,6 @@ const ModalBox = styled.div`
 const InfoBox = styled.div`
   display: flex;
   flex-direction: row;
-`;
-const InfoTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 150px;
-`;
-const InfoContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
 `;
 
 function ModalWrite() {
@@ -108,87 +102,20 @@ function ModalWrite() {
     >
       <form>
         <ModalBox>
-          <input
-            type="text"
-            value={title}
-            className="input title"
-            name="title"
-            onChange={onChange}
-            placeholder="제목 없음"
-            autoFocus
-          />
+          <ItemTitle onChange={onChange} title={title} />
           <br />
           <InfoBox>
-            <InfoTitle>
-              <div>
-                <p className="infoTitle">📆 작성일시</p>
-              </div>
-              <div>
-                <p className="infoTitle">🚦 상태</p>
-              </div>
-              <div>
-                <p className="infoTitle">🚨 우선 순위</p>
-              </div>
-              <div>
-                <p className="infoTitle">✍ 작성자</p>
-              </div>
-            </InfoTitle>
-            <InfoContent>
-              <div>
-                <input
-                  type="text"
-                  value={_createdDate}
-                  className="input"
-                  readOnly
-                />
-              </div>
-              <div>
-                <select
-                  name="process"
-                  value={process}
-                  className="selectBox"
-                  onChange={onChange}
-                >
-                  <option value="0">진행 전</option>
-                  <option value="1">진행 중</option>
-                  <option value="2">완료 🙌</option>
-                </select>
-              </div>
-              <div>
-                <select
-                  name="priority"
-                  value={priority}
-                  className="selectBox"
-                  onChange={onChange}
-                >
-                  <option value="0">우선순위 0 🔥</option>
-                  <option value="1">우선순위 1</option>
-                  <option value="2">우선순위 2</option>
-                  <option value="3">우선순위 3</option>
-                  <option value="4">우선순위 4</option>
-                  <option value="5">우선순위 5</option>
-                </select>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="author"
-                  value={author}
-                  className="input"
-                  onChange={onChange}
-                  placeholder="작성자를 입력해 주세요."
-                />
-              </div>
-            </InfoContent>
+            <InfoTitle />
+            <InfoContent
+              onChange={onChange}
+              createdDate={_createdDate}
+              process={process}
+              priority={priority}
+              author={author}
+            />
           </InfoBox>
           <div>
-            <textarea
-              value={content}
-              className="content"
-              name="content"
-              onChange={onChange}
-              placeholder="내용을 입력해 주세요."
-            />
+            <ItemContent onChange={onChange} content={content} />
           </div>
         </ModalBox>
       </form>
