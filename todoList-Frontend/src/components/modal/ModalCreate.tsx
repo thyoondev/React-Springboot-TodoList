@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalCreate, create } from '../../store/Action';
+import { closeModalCreateSaga, create, createPost } from '../../store/Action';
 import './Modal.css';
 import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
-import { restApiEnum } from '../../common/enum/Enum';
-import { RESTAPIURL } from '../../common/restTApiUrl';
 import InfoTitle from './InfoTitle';
 import InfoContent from './InfoContent';
 import ItemTitle from './ItemTitle';
 import ItemContent from './ItemContent';
+import { restApiEnum } from '../../common/enum/Enum';
+import { RESTAPIURL } from '../../common/restTApiUrl';
 
 Modal.setAppElement('#root');
 
@@ -30,12 +30,12 @@ function ModalWrite() {
   const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
 
   const [inputs, setInputs] = useState({
-    id: '',
+    id: 0,
     title: '',
     content: '',
-    priority: '',
+    priority: 0,
     createdDate: moment().format('YYYYMMDDHHmmss'),
-    process: '',
+    process: 0,
     author: '',
   });
 
@@ -50,33 +50,34 @@ function ModalWrite() {
   };
 
   const onWrite = () => {
-    fetch(RESTAPIURL, {
-      method: restApiEnum.POST,
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(inputs),
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          return res.json();
-        } else {
-          return null;
-        }
-      })
-      .then((res) => {
-        // Catch는 여기서 오류가 나야 실행됨.
-        if (res !== null) {
-          dispatch(create(res));
-        } else {
-          alert('등록에 실패하였습니다.');
-        }
-      });
+    // fetch(RESTAPIURL, {
+    //   method: restApiEnum.POST,
+    //   headers: {
+    //     'Content-Type': 'application/json; charset=utf-8',
+    //   },
+    //   body: JSON.stringify(inputs),
+    // })
+    //   .then((res) => {
+    //     if (res.status === 201) {
+    //       return res.json();
+    //     } else {
+    //       return null;
+    //     }
+    //   })
+    //   .then((res) => {
+    //     // Catch는 여기서 오류가 나야 실행됨.
+    //     if (res !== null) {
+    //       dispatch(create(res));
+    //     } else {
+    //       alert('등록에 실패하였습니다.');
+    //     }
+    //   });
+    dispatch(createPost(inputs));
   };
 
   const offModalCreate = () => {
     title !== '' && onWrite();
-    dispatch(closeModalCreate());
+    dispatch(closeModalCreateSaga());
   };
 
   const _createdDate = moment(createdDate, 'YYYYMMDDHHmmss').format(

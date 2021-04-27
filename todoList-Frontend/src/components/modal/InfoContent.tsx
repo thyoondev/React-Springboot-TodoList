@@ -40,6 +40,22 @@ const InputBox = styled.input`
     background: rgba(0, 0, 0, 0.05);
   }
 `;
+
+const processLabel = [
+  { label: '진행 전' },
+  { label: '진행 중' },
+  { label: '완료 🙌' },
+];
+
+const priorityLabel = [
+  { label: '우선순위 0 🔥' },
+  { label: '우선순위 1' },
+  { label: '우선순위 2' },
+  { label: '우선순위 3' },
+  { label: '우선순위 4' },
+  { label: '우선순위 5' },
+];
+
 const InfoContent = (props: any) => {
   const { onChange, createdDate, process, priority, author } = props;
   return (
@@ -49,19 +65,20 @@ const InfoContent = (props: any) => {
       </div>
       <div>
         <SelectBox name="process" value={process} onChange={onChange}>
-          <option value="0">진행 전</option>
-          <option value="1">진행 중</option>
-          <option value="2">완료 🙌</option>
+          {processLabel.map((item, index) => (
+            <option key={index} value={index}>
+              {item.label}
+            </option>
+          ))}
         </SelectBox>
       </div>
       <div>
         <SelectBox name="priority" value={priority} onChange={onChange}>
-          <option value="0">우선순위 0 🔥</option>
-          <option value="1">우선순위 1</option>
-          <option value="2">우선순위 2</option>
-          <option value="3">우선순위 3</option>
-          <option value="4">우선순위 4</option>
-          <option value="5">우선순위 5</option>
+          {priorityLabel.map((item, index) => (
+            <option key={index} value={index}>
+              {item.label}
+            </option>
+          ))}
         </SelectBox>
       </div>
       <div>

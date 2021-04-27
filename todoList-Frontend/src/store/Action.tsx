@@ -11,6 +11,10 @@ export const create = (todo: todoTypes) => ({
   type: typesEnum.CREATE,
   payload: { todo: todo },
 });
+export const createPost = (todo: todoTypes) => ({
+  type: typesEnum.CREATE_POST,
+  payload: { todo: todo },
+});
 export const update = (todo: todoTypes) => ({
   type: typesEnum.UPDATE,
   payload: { todo: todo },
@@ -28,6 +32,9 @@ export const showModalCreate = () => ({ type: typesEnum.SHOWMODALCREATE });
 export const closeModalCreate = () => ({ type: typesEnum.CLOSEMODALCREATE });
 export const toggleDarkMode = () => ({ type: typesEnum.TOGGLEDARK });
 
+export const closeModalCreateSaga = () => ({
+  type: typesEnum.CLOSEMODALCREATESAGA,
+});
 const Action = () => {
   return <div></div>;
 };

@@ -162,13 +162,13 @@ function TodoList() {
   const isDarkModeActive = useSelector(
     (store: inistateTypes) => store.isDarkModeActive,
   );
-  const processName: string[] = ['진행 전', '진행 중', '완료 🙌'];
+  const processLabel: string[] = ['진행 전', '진행 중', '완료 🙌'];
 
   //프로세스 상태에 따라 출력
   const showListProcess = (todoList: todoTypes[], processValue: number) => {
     return todoList.map(
-      (todo: todoTypes) =>
-        todo.process === processValue && <TodoItem key={todo.id} todo={todo} />,
+      (todo: todoTypes, index: number) =>
+        todo.process === processValue && <TodoItem key={index} todo={todo} />,
     );
   };
 
@@ -178,35 +178,37 @@ function TodoList() {
     <>
       {modal.showEdit &&
         todoList.map(
-          (todo: todoTypes) =>
-            todo.id === modal.id && <ModalUpdate key={todo.id} todo={todo} />,
+          (todo: todoTypes, index: number) =>
+            todo.id === modal.id && <ModalUpdate key={index} todo={todo} />,
         )}
       {modal.showCreate && <ModalCreate />}
 
       <TodoListProcessTitleBox>
-        {processName.map((title, i) => (
+        {processLabel.map((item, index: number) => (
           <TodoListProcessTitleBoxInner>
             <TodoListProcessTitle
-              processValue={i}
+              key={index}
+              processValue={index}
               isDarkModeActive={isDarkModeActive}
             >
-              {title}
+              {item}
             </TodoListProcessTitle>
           </TodoListProcessTitleBoxInner>
         ))}
       </TodoListProcessTitleBox>
 
       <TodoListBlock>
-        {processName.map((title, i) => (
+        {processLabel.map((item, index: number) => (
           <TodoListBlockInner isDarkModeActive={isDarkModeActive}>
             <TodoMediaTitle
-              processValue={i}
+              key={index}
+              processValue={index}
               isDarkModeActive={isDarkModeActive}
             >
-              {title}
+              {item}
             </TodoMediaTitle>
             <BlankBox />
-            {showListProcess(todoList, i)}
+            {showListProcess(todoList, index)}
             <CreateItem onClick={onModalCreate}>
               <CreateItemTitle isDarkModeActive={isDarkModeActive}>
                 <MdAdd />

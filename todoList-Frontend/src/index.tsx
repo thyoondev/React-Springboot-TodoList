@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 // import { Provider } from "react-redux";
 //import './index.css';
 import App from './App';
 import reducer from './store/Reducer';
+import createSagaMiddleware from 'redux-saga';
+import { rootSaga } from './store/Saga';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   reducer,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+  composeWithDevTools(
+    applyMiddleware(
+      sagaMiddleware, // 사가 미들웨어를 적용하고
+    ),
+  ),
 );
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
