@@ -6,10 +6,9 @@ import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 import TodoItem from './TodoItem';
 import ModalUpdate from '../modal/ModalUpdate';
-import { getTodoList, showModalCreate } from '../../store/Action';
+import { getPost, showModalCreate } from '../../common/action/Action';
+import { inistateTypes, todoTypes } from '../../common/typeInterface/types';
 import ModalCreate from '../modal/ModalCreate';
-import { inistateTypes, todoTypes } from '../../common/types/types';
-import { RESTAPIURL } from '../../common/restTApiUrl';
 
 const TodoListBlock = styled.div`
   display: flex;
@@ -143,32 +142,23 @@ const CreateItemTitle = styled.span<any>`
 `;
 
 function TodoList() {
-  const todoList = useSelector((store: inistateTypes) => store.todoList);
-
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch(RESTAPIURL)
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch(getTodoList(res));
-        //sortTodoList('priority');
-      });
+    dispatch(getPost());
   }, []);
 
+  const todoList = useSelector((store: inistateTypes) => store.todoList);
   todoList.sort((a: todoTypes, b: todoTypes) => a.id - b.id);
   todoList.sort((a: todoTypes, b: todoTypes) => a.priority - b.priority);
 
   const modal = useSelector((store: inistateTypes) => store.showModal);
-  const isDarkModeActive = useSelector(
-    (store: inistateTypes) => store.isDarkModeActive,
-  );
+  const isDarkModeActive = useSelector((store: inistateTypes) => store.isDarkModeActive);
   const processLabel: string[] = ['진행 전', '진행 중', '완료 🙌'];
 
   //프로세스 상태에 따라 출력
   const showListProcess = (todoList: todoTypes[], processValue: number) => {
     return todoList.map(
-      (todo: todoTypes, index: number) =>
-        todo.process === processValue && <TodoItem key={index} todo={todo} />,
+      (todo: todoTypes, index: number) => todo.process === processValue && <TodoItem key={index} todo={todo} />,
     );
   };
 
@@ -178,19 +168,14 @@ function TodoList() {
     <>
       {modal.showEdit &&
         todoList.map(
-          (todo: todoTypes, index: number) =>
-            todo.id === modal.id && <ModalUpdate key={index} todo={todo} />,
+          (todo: todoTypes, index: number) => todo.id === modal.id && <ModalUpdate key={index} todo={todo} />,
         )}
       {modal.showCreate && <ModalCreate />}
 
       <TodoListProcessTitleBox>
         {processLabel.map((item, index: number) => (
           <TodoListProcessTitleBoxInner>
-            <TodoListProcessTitle
-              key={index}
-              processValue={index}
-              isDarkModeActive={isDarkModeActive}
-            >
+            <TodoListProcessTitle key={index} processValue={index} isDarkModeActive={isDarkModeActive}>
               {item}
             </TodoListProcessTitle>
           </TodoListProcessTitleBoxInner>
@@ -200,11 +185,7 @@ function TodoList() {
       <TodoListBlock>
         {processLabel.map((item, index: number) => (
           <TodoListBlockInner isDarkModeActive={isDarkModeActive}>
-            <TodoMediaTitle
-              key={index}
-              processValue={index}
-              isDarkModeActive={isDarkModeActive}
-            >
+            <TodoMediaTitle key={index} processValue={index} isDarkModeActive={isDarkModeActive}>
               {item}
             </TodoMediaTitle>
             <BlankBox />

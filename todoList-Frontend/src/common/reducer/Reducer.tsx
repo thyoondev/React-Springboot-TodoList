@@ -1,5 +1,5 @@
-import { typesEnum } from '../common/enum/Enum';
-import { action, inistateTypes, todoTypes } from '../common/types/types';
+import { typesEnum } from '../typeInterface/Enum';
+import { action, inistateTypes, todoTypes } from '../typeInterface/types';
 
 //초기 상태 값
 const inistate: inistateTypes = {
@@ -11,14 +11,21 @@ const inistate: inistateTypes = {
 //리듀서
 const reducer: any = (state: inistateTypes = inistate, action: action) => {
   switch (action.type) {
-    case typesEnum.GETTODOLIST:
+    //조회
+    case typesEnum.GET_POST_SUCCESS:
       return {
         ...state,
         todoList: state.todoList.concat(action.payload.todoList),
       };
-    case typesEnum.CREATE:
+    case typesEnum.GET_POST_ERORR:
+      return alert('조회에 실패하였습니다.'), console.error('[ERROR] getPostSaga() :', action.payload.error);
+    //생성
+    case typesEnum.CREATE_POST_SUCCESS:
       return { ...state, todoList: state.todoList.concat(action.payload.todo) };
-    case typesEnum.UPDATE:
+    case typesEnum.CREATE_POST_ERORR:
+      return alert('등록에 실패하였습니다.'), console.error('[ERROR] createPostSaga() :', action.payload.error);
+    //수정
+    case typesEnum.UPDATE_POST_SUCCESS:
       return {
         ...state,
         todoList: state.todoList.map((todo: todoTypes) =>
@@ -34,13 +41,16 @@ const reducer: any = (state: inistateTypes = inistate, action: action) => {
             : todo,
         ),
       };
-    case typesEnum.REMOVE:
+    case typesEnum.UPDATE_POST_ERORR:
+      return alert('수정에 실패하였습니다.'), console.error('[ERROR] updatePostSaga() :', action.payload.error);
+    //삭제
+    case typesEnum.DELETE_POST_SUCCESS:
       return {
         ...state,
-        todoList: state.todoList.filter(
-          (todo: todoTypes) => todo.id !== action.payload.id,
-        ),
+        todoList: state.todoList.filter((todo: todoTypes) => todo.id !== action.payload.id),
       };
+    case typesEnum.DELETE_POST_ERORR:
+      return alert('삭제에 실패하였습니다.'), console.error('[ERROR] deletePostSaga() :', action.payload.error);
     case typesEnum.SHOWMODALUPDATE:
       return {
         ...state,
@@ -50,6 +60,7 @@ const reducer: any = (state: inistateTypes = inistate, action: action) => {
           id: action.payload.id,
         },
       };
+    //모달
     case typesEnum.CLOSEMODALUPDATE:
       return {
         ...state,

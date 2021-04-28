@@ -3,12 +3,12 @@
 import styled, { css } from 'styled-components';
 import { MdDelete } from 'react-icons/md';
 import 'moment/locale/ko';
-import { remove } from '../../store/Action';
 import TodoContent from './TodoContent';
 import { useDispatch, useSelector } from 'react-redux';
-import { inistateTypes, todoTypes } from '../../common/types/types';
-import { restApiEnum } from '../../common/enum/Enum';
-import { RESTAPIURL } from '../../common/restTApiUrl';
+import { inistateTypes, todoTypes } from '../../common/typeInterface/types';
+import { restApiEnum } from '../../common/typeInterface/Enum';
+import { RESTAPIURL } from '../../common/typeInterface/restApiUrl';
+import { deletePost } from '../../common/action/Action';
 
 const Remove = styled.div`
   display: flex;
@@ -59,22 +59,10 @@ const TodoItemBlock = styled.div<any>`
 
 function TodoItem(props: any) {
   const todo: todoTypes = props.todo;
-  const isDarkModeActive = useSelector(
-    (store: inistateTypes) => store.isDarkModeActive,
-  );
+  const isDarkModeActive = useSelector((store: inistateTypes) => store.isDarkModeActive);
   const dispatch = useDispatch();
   const onRemove = () => {
-    fetch(RESTAPIURL + todo.id, {
-      method: restApiEnum.DELETE,
-    })
-      .then((res) => res.text())
-      .then((res) => {
-        if (res === 'ok') {
-          dispatch(remove(todo.id));
-        } else {
-          alert('삭제 실패');
-        }
-      });
+    dispatch(deletePost(todo.id));
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { showModalUpdate } from '../../store/Action';
+import { showModalUpdate } from '../../common/action/Action';
 import './TodoContent.css';
 
 const Text = styled.div<any>`

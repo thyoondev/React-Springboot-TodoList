@@ -6,8 +6,8 @@ import moment from 'moment';
 import 'moment/locale/ko'; // 이줄 추가
 import WeatherApi from './WeatherApi';
 import { useSelector } from 'react-redux';
-import DarkMode from '../../style/DarkMode';
-import { inistateTypes, todoTypes } from '../../common/types/types';
+import DarkMode from '../../common/style/DarkMode';
+import { inistateTypes, todoTypes } from '../../common/typeInterface/types';
 
 const TodoHeadBlock = styled.div<any>`
   padding-top: 35px;

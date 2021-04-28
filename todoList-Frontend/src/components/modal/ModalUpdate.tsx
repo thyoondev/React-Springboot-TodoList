@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalUpdate, update } from '../../store/Action';
-import './Modal.css';
+import { closeModalUpdate, updatePost } from '../../common/action/Action';
+import './Style.css';
 import moment from 'moment';
-import 'moment/locale/ko'; // 이줄 추가
-import { restApiEnum } from '../../common/enum/Enum';
-import { RESTAPIURL } from '../../common/restTApiUrl';
-import ItemContent from './ItemContent';
-import ItemTitle from './ItemTitle';
-import InfoContent from './InfoContent';
-import InfoTitle from './InfoTitle';
+import 'moment/locale/ko';
+import ItemContent from './element/ItemContent';
+import ItemTitle from './element/ItemTitle';
+import InfoContent from './element/InfoContent';
+import InfoTitle from './element/InfoTitle';
 
 Modal.setAppElement('#root');
 
@@ -52,27 +50,7 @@ function DetailPage(props: any) {
   };
 
   const onUpdate = () => {
-    fetch(RESTAPIURL + todo.id, {
-      method: restApiEnum.PUT,
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(inputs), //자바스크립트 오브젝트를 json으로 변경해서 던져주기
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        } else {
-          return null;
-        }
-      })
-      .then((res) => {
-        if (res !== null) {
-          dispatch(update(res));
-        } else {
-          alert('수정에 실패하였습니다.');
-        }
-      });
+    dispatch(updatePost(inputs));
   };
 
   const offModal = () => {
@@ -80,9 +58,7 @@ function DetailPage(props: any) {
     dispatch(closeModalUpdate());
   };
 
-  const _createdDate = moment(createdDate, 'YYYYMMDDHHmmss').format(
-    'YYYY년 MM월 DD일 A hh:mm',
-  );
+  const _createdDate = moment(createdDate, 'YYYYMMDDHHmmss').format('YYYY년 MM월 DD일 A hh:mm');
 
   return (
     <Modal

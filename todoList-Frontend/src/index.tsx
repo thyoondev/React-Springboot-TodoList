@@ -4,10 +4,10 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 // import { Provider } from "react-redux";
 //import './index.css';
-import App from './App';
-import reducer from './store/Reducer';
+import App from './components/App';
+import reducer from './common/reducer/Reducer';
 import createSagaMiddleware from 'redux-saga';
-import { rootSaga } from './store/Saga';
+import { rootSaga } from './common/saga/Saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const sagaMiddleware = createSagaMiddleware();

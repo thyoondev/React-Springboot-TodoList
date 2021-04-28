@@ -1,14 +1,12 @@
 import React from 'react';
-import TodoTemplate from './components/TodoTemplate';
-import TodoHead from './components/todoHead/TodoHead';
-import TodoList from './components/todoList/TodoList';
+import Template from './Template';
+import TodoHead from './todoHead/TodoHead';
+import TodoList from './todoContainer/TodoList';
 import './App.css';
 import { useSelector } from 'react-redux';
 
 const App = () => {
-  const isDarkModeActive: boolean = useSelector(
-    (store: any) => store.isDarkModeActive,
-  );
+  const isDarkModeActive: boolean = useSelector((store: any) => store.isDarkModeActive);
   return (
     <>
       <section
@@ -18,10 +16,10 @@ const App = () => {
             : { background: '#aeddef', transition: 'background 2s' }
         }
       >
-        <TodoTemplate>
+        <Template>
           <TodoHead />
           <TodoList />
-        </TodoTemplate>
+        </Template>
         <div className="wave wave1"></div>
         <div className="wave wave2"></div>
         <div className="wave wave3"></div>

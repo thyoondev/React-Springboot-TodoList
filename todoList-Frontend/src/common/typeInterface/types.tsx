@@ -1,4 +1,4 @@
-import { typesEnum } from '../enum/Enum';
+import { typesEnum } from './Enum';
 
 /* 리듀서 시작 */
 export interface todoTypes {

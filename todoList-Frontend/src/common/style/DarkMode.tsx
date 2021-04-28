@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { toggleDarkMode } from '../store/Action';
+import { toggleDarkMode } from '../action/Action';
 import './DarkMode.css';
 
 const DarkMode = () => {

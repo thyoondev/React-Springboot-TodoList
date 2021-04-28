@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalCreateSaga, create, createPost } from '../../store/Action';
-import './Modal.css';
+import { closeModalCreate, createPost } from '../../common/action/Action';
+import './Style.css';
 import moment from 'moment';
-import 'moment/locale/ko'; // 이줄 추가
-import InfoTitle from './InfoTitle';
-import InfoContent from './InfoContent';
-import ItemTitle from './ItemTitle';
-import ItemContent from './ItemContent';
-import { restApiEnum } from '../../common/enum/Enum';
-import { RESTAPIURL } from '../../common/restTApiUrl';
+import 'moment/locale/ko';
+import InfoTitle from './element/InfoTitle';
+import InfoContent from './element/InfoContent';
+import ItemTitle from './element/ItemTitle';
+import ItemContent from './element/ItemContent';
 
 Modal.setAppElement('#root');
 
@@ -24,7 +22,7 @@ const InfoBox = styled.div`
   flex-direction: row;
 `;
 
-function ModalWrite() {
+function ModalCreate() {
   const dispatch = useDispatch();
   const modalIsOpen = useSelector((store: any) => store.showModal.showCreate);
   const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
@@ -50,39 +48,15 @@ function ModalWrite() {
   };
 
   const onWrite = () => {
-    // fetch(RESTAPIURL, {
-    //   method: restApiEnum.POST,
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=utf-8',
-    //   },
-    //   body: JSON.stringify(inputs),
-    // })
-    //   .then((res) => {
-    //     if (res.status === 201) {
-    //       return res.json();
-    //     } else {
-    //       return null;
-    //     }
-    //   })
-    //   .then((res) => {
-    //     // Catch는 여기서 오류가 나야 실행됨.
-    //     if (res !== null) {
-    //       dispatch(create(res));
-    //     } else {
-    //       alert('등록에 실패하였습니다.');
-    //     }
-    //   });
     dispatch(createPost(inputs));
   };
 
   const offModalCreate = () => {
     title !== '' && onWrite();
-    dispatch(closeModalCreateSaga());
+    dispatch(closeModalCreate());
   };
 
-  const _createdDate = moment(createdDate, 'YYYYMMDDHHmmss').format(
-    'YYYY년 MM월 DD일 A hh:mm',
-  );
+  const _createdDate = moment(createdDate, 'YYYYMMDDHHmmss').format('YYYY년 MM월 DD일 A hh:mm');
 
   return (
     <Modal
@@ -124,4 +98,4 @@ function ModalWrite() {
   );
 }
 
-export default ModalWrite;
+export default ModalCreate;
