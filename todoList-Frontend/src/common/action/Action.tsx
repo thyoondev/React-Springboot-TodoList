@@ -59,14 +59,12 @@ export const deleteError = (error: string) => ({
 });
 
 //모달
-export const showModalUpdate = (id: number) => ({
-  type: typesEnum.SHOWMODALUPDATE,
+export const toggleModalUpdate = (id: number) => ({
+  type: typesEnum.TOGGLE_MODAL_UPDATE,
   payload: { id: id },
 });
-export const closeModalUpdate = () => ({ type: typesEnum.CLOSEMODALUPDATE });
-export const showModalCreate = () => ({ type: typesEnum.SHOWMODALCREATE });
-export const closeModalCreate = () => ({ type: typesEnum.CLOSEMODALCREATE });
-export const toggleDarkMode = () => ({ type: typesEnum.TOGGLEDARK });
+export const toggleModalCreate = () => ({ type: typesEnum.TOGGLE_MODAL_CREATE });
+export const toggleDarkMode = () => ({ type: typesEnum.TOGGLE_DARK });
 
 const Action = () => {
   return <div></div>;

@@ -112,9 +112,7 @@ const TodoHeadBlock = styled.div<any>`
 `;
 
 function TodoHead() {
-  const isDarkModeActive = useSelector(
-    (store: inistateTypes) => store.isDarkModeActive,
-  );
+  const isDarkModeActive = useSelector((store: inistateTypes) => store.isDarkModeActive);
   const todoList = useSelector((store: inistateTypes) => store.todoList);
   const undoneTasks = todoList.filter((todo: todoTypes) => todo.process !== 2);
 

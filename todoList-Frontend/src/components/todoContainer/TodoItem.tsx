@@ -6,8 +6,6 @@ import 'moment/locale/ko';
 import TodoContent from './TodoContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { inistateTypes, todoTypes } from '../../common/typeInterface/types';
-import { restApiEnum } from '../../common/typeInterface/Enum';
-import { RESTAPIURL } from '../../common/typeInterface/restApiUrl';
 import { deletePost } from '../../common/action/Action';
 
 const Remove = styled.div`

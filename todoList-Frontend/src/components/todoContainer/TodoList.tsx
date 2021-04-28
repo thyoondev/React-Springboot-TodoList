@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 import TodoItem from './TodoItem';
 import ModalUpdate from '../modal/ModalUpdate';
-import { getPost, showModalCreate } from '../../common/action/Action';
+import { getPost, toggleModalCreate } from '../../common/action/Action';
 import { inistateTypes, todoTypes } from '../../common/typeInterface/types';
 import ModalCreate from '../modal/ModalCreate';
 
@@ -162,7 +162,7 @@ function TodoList() {
     );
   };
 
-  const onModalCreate = () => dispatch(showModalCreate());
+  const onModalCreate = () => dispatch(toggleModalCreate());
 
   return (
     <>

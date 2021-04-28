@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { showModalUpdate } from '../../common/action/Action';
+import { toggleModalUpdate } from '../../common/action/Action';
 import './TodoContent.css';
 
 const Text = styled.div<any>`
@@ -73,26 +73,19 @@ const TodoContent = (props: any) => {
   const { todo } = props;
   //웹 링크 처리
   let rawString = todo.title;
-  let expUrl = new RegExp(
-    '(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)',
-    'gi',
-  );
+  let expUrl = new RegExp('(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)', 'gi');
   let result = rawString.match(expUrl);
 
   //텍스트에 htt 가 포함되면 a태그로 감싸주고 포함되어있지않으면 raw string 그대로 출력
   const getText = () => {
     if (todo.title.indexOf(result) !== -1) {
-      return rawString.replace(
-        result,
-        `<a href="${result}" target="_blank"> ${result} </a>`,
-        todo.text,
-      );
+      return rawString.replace(result, `<a href="${result}" target="_blank"> ${result} </a>`, todo.text);
     } else {
       return todo.title;
     }
   };
   const dispatch = useDispatch();
-  const onModalEdit = () => dispatch(showModalUpdate(todo.id));
+  const onModalEdit = () => dispatch(toggleModalUpdate(todo.id));
   const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
   return (
     <>

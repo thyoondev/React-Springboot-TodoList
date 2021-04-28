@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalCreate, createPost } from '../../common/action/Action';
+import { createPost, toggleModalCreate } from '../../common/action/Action';
 import './Style.css';
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -53,7 +53,7 @@ function ModalCreate() {
 
   const offModalCreate = () => {
     title !== '' && onWrite();
-    dispatch(closeModalCreate());
+    dispatch(toggleModalCreate());
   };
 
   const _createdDate = moment(createdDate, 'YYYYMMDDHHmmss').format('YYYY년 MM월 DD일 A hh:mm');

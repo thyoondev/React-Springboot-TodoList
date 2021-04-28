@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModalUpdate, updatePost } from '../../common/action/Action';
+import { toggleModalUpdate, updatePost } from '../../common/action/Action';
 import './Style.css';
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -24,7 +24,6 @@ const InfoBox = styled.div`
 
 function DetailPage(props: any) {
   const dispatch = useDispatch();
-
   const modalIsOpen = useSelector((store: any) => store.showModal.showEdit);
   const isDarkModeActive = useSelector((store: any) => store.isDarkModeActive);
 
@@ -55,7 +54,7 @@ function DetailPage(props: any) {
 
   const offModal = () => {
     title !== '' && onUpdate();
-    dispatch(closeModalUpdate());
+    dispatch(toggleModalUpdate(-1));
   };
 
   const _createdDate = moment(createdDate, 'YYYYMMDDHHmmss').format('YYYY년 MM월 DD일 A hh:mm');

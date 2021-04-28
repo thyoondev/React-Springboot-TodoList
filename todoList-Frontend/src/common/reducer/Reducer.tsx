@@ -51,32 +51,21 @@ const reducer: any = (state: inistateTypes = inistate, action: action) => {
       };
     case typesEnum.DELETE_POST_ERORR:
       return alert('삭제에 실패하였습니다.'), console.error('[ERROR] deletePostSaga() :', action.payload.error);
-    case typesEnum.SHOWMODALUPDATE:
+    case typesEnum.TOGGLE_MODAL_UPDATE:
       return {
         ...state,
         showModal: {
           ...state.showModal,
-          showEdit: true,
+          showEdit: !state.showModal.showEdit,
           id: action.payload.id,
         },
       };
-    //모달
-    case typesEnum.CLOSEMODALUPDATE:
+    case typesEnum.TOGGLE_MODAL_CREATE:
       return {
         ...state,
-        showModal: { ...state.showModal, showEdit: false, id: -1 },
+        showModal: { ...state.showModal, showCreate: !state.showModal.showCreate },
       };
-    case typesEnum.SHOWMODALCREATE:
-      return {
-        ...state,
-        showModal: { ...state.showModal, showCreate: true },
-      };
-    case typesEnum.CLOSEMODALCREATE:
-      return {
-        ...state,
-        showModal: { ...state.showModal, showCreate: false },
-      };
-    case typesEnum.TOGGLEDARK:
+    case typesEnum.TOGGLE_DARK:
       return {
         ...state,
         isDarkModeActive: !state.isDarkModeActive,
