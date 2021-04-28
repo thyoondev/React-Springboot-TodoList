@@ -9,7 +9,7 @@
 | ![메인화면](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/TodoList/1.PNG) | ![모달창 보임](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/TodoList/2.PNG) |
 
 - RWD, DarkMode
-- Frontend(React.js + Redux + TypeScript), Backend(SpringBoot + JPA + MySql + lombok)
+- Frontend(React.js + Redux-Saga+ TypeScript), Backend(SpringBoot + JPA + MySql + lombok)
 - REST API
 - OpenWeatherAPI
 
@@ -17,7 +17,7 @@
 
 - 의존성 패키지(React)
 
-```sh
+```json
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -28,6 +28,7 @@
     "@types/react-dom": "^17.0.3",
     "@types/react-modal": "^3.12.0",
     "@types/react-redux": "^7.1.16",
+    "axios": "^0.21.1",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -38,16 +39,18 @@
     "react-scripts": "4.0.3",
     "react-string-replace": "^0.4.4",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-saga": "^1.1.3",
     "styled-components": "^5.2.3",
     "styled-normalize": "^8.0.7",
     "typescript": "^4.2.4",
     "web-vitals": "^1.0.1"
-  }
+  },
 ```
 
 - 의존성 패키지(SpringBoot)
 
-```sh
+```xml
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -79,13 +82,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	<!-- 	<dependency>
+	<!--<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-core</artifactId>
 		    <version>5.4.6</version>
-		</dependency>
-		https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
-		<dependency>
+		</dependency>           
+		https://mvnrepository.com/artifact/org.springframework.security/              spring-security-config               
+		<dependency>            
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
 		    <version>5.4.6</version>
