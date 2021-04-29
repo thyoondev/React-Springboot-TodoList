@@ -28,7 +28,7 @@ export function* RestApiSaga() {
 //조회
 function* getPostSaga() {
   try {
-    const result: todoTypes[] = yield fetch(RESTAPIURL)
+    const result: todoTypes[] = yield fetch(RESTAPIURL + 'myBatis')
       .then((res) => res.json())
       .then((res) => res);
     yield put(getPostSuccess(result));
