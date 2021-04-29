@@ -14,7 +14,8 @@
 > 📝할 일 관리📝
 
 - RWD, DarkMode
-- Frontend(React.js + Redux-Saga+ TypeScript), Backend(SpringBoot + JPA + MySql + lombok)
+- Frontend(React.js + Redux(saga)+ TypeScript)
+- Backend(SpringBoot + JPA + myBatis + MySql)
 - REST API
 - OpenWeatherAPI
 
