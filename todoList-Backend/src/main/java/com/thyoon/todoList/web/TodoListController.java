@@ -77,12 +77,12 @@ public class TodoListController {
 	public ResponseEntity<?> findAllMyBatis() {
 		return new ResponseEntity<>(todolistMapper.모두가져오기myBatis(), HttpStatus.OK); // 200
 	}
-
-	@CrossOrigin
-	@GetMapping("/todoList/myBatis/{id}")
-	public ResponseEntity<?> findByIdMyBatis(@PathVariable Long id) {
-		return new ResponseEntity<>(todolistMapper.한건가져오기myBatis(id), HttpStatus.OK); // 200
-	}
+//
+//	@CrossOrigin
+//	@GetMapping("/todoList/myBatis/{id}")
+//	public ResponseEntity<?> findByIdMyBatis(@PathVariable Long id) {
+//		return new ResponseEntity<>(todolistMapper.한건가져오기myBatis(id), HttpStatus.OK); // 200
+//	}
 //
 //	@CrossOrigin
 //	@PutMapping("/todoList/myBatis/{id}")
