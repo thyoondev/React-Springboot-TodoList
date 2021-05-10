@@ -25,7 +25,7 @@ export function* RestApiSaga() {
   yield takeLatest(typesEnum.DELETE_POST, deletePostSaga);
 }
 
-//조회
+//조회(myBatis)
 function* getPostSaga() {
   try {
     const result: todoTypes[] = yield fetch(RESTAPIURL + 'myBatis')
