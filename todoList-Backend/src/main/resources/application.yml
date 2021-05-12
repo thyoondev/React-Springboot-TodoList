@@ -7,10 +7,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/todoList?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://110.45.156.139:10176/todo_db?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: thyoon
+    password: kbsys1234
   mvc:
     view:
       prefix: /WEB-INF/views/

@@ -10,7 +10,7 @@ import com.thyoon.todoList.model.Todo;
 @Mapper
 public interface TodoListMapper {
 	
-	@Select("select * from todo")
+	@Select("select * from Todo")
 	List<Todo> 모두가져오기myBatis();
 
 
