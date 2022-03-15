@@ -7,9 +7,9 @@
 
 | 메인 화면                                                                      |      다크모드                                                                    |
 | ------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| ![CRUD](https://drive.google.com/uc?id=19U3_jp95gSWYKtXtnmfxBMY3S82y0HeZ) | ![다크모드](https://drive.google.com/uc?id=1qlCrnYoDaR4Y0qEYD_pnsdtjS3m-cE-B) |
+| ![CRUD](https://user-images.githubusercontent.com/64685759/158321240-c08340f7-169e-490e-b3bb-2132aa70cbb3.gif) | ![다크모드](https://user-images.githubusercontent.com/64685759/158321250-25c940d1-ce76-4db1-98ab-773f24f4fc24.gif) |
 | 모바일                                                                      |      다크모드                                                                    |
-| ![RWD](https://drive.google.com/uc?id=1rVANEP_WGA1OB2cPHWX91Od-6V_wtyX9)  | ![RWD-DARK](https://drive.google.com/uc?id=141QJAqePGtlliVz_B_8xxmh4sdml8349) |
+| ![RWD](https://user-images.githubusercontent.com/64685759/158321047-cc611997-7ece-4fd3-a427-ffc7be0db97a.png)  | ![RWD-DARK](https://user-images.githubusercontent.com/64685759/158321052-d80d9c4c-a0b9-43e7-98e1-9473bc9d812e.png) |
 
 > 📝할 일 관리📝
 
